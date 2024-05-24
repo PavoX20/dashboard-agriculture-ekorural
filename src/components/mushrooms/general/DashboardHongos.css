@@ -1,0 +1,58 @@
+
+.mushroom-value{
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+
+
+.mushroom-value-notLoaded{
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 10px;
+    color: gray;
+}
+.col-plot-metrics{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+    height: 500px;
+}
+
+.fan-status-div{
+    display: flex;
+    width: 200px;
+    border: 1px solid black;
+    justify-content: center;
+}
+.fan-box{
+    border-radius: 20px;
+    padding: 10px 75px 10px 75px;
+    background-color: #f0f0f0;
+    width: 100px;
+
+}
+
+
+.activated-deactivaded-text{
+    margin-bottom: -2px;
+    margin-top: -20px;
+    font-size: 1rem;
+
+}
+
+.mushroom-text{
+  font-size: 0.8rem;
+}
+/*{fanStatus === null ? (
+    <div className="mushroom-value-notLoaded">
+      {"Cargando..."}
+    </div>
+  ) : fanStatus === "Activated" ? (
+    <div className="mushroom-value">{"Activado"}</div>
+  ) : (
+    <div className="mushroom-value">{"Desactivado"}</div>
+  )}

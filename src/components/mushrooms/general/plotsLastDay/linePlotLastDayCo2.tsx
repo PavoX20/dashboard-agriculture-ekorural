@@ -3,23 +3,30 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { ChartOptions, ChartData } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import { CO2ChartProps, GeneralData } from '../types/types';  // Asume que tienes un archivo de tipos similar
+import { CO2ChartProps, GeneralData } from '../types/types';
 
 const LinePlotLastDayCO2: React.FC<CO2ChartProps> = ({ data, theme, threshold }) => {
+  
+  const pointColor = data.map(item => (item.co2 ?? 0) < threshold ? 'rgb(255, 0, 0)' : 'rgb(60, 186, 159)');
+
   const chartData: ChartData<'line', { x: Date; y: number }[], Date> = {
     labels: data.map((item: GeneralData) => new Date(item.timestamp)),
     datasets: [
       {
-        label: 'CO2 (ppm)',  // ppm: partes por millón, una unidad común para medir el CO2
+        label: 'CO2 (ppm)',
         data: data.map(item => ({
           x: new Date(item.timestamp),
-          y: item.co2 ?? 0,  // Asegurarse de que los datos no sean nulos
+          y: item.co2 ?? 0,
         })),
         fill: false,
+        pointRadius: 3,
+        pointBackgroundColor: pointColor,
+        pointBorderColor: pointColor, // Mismo color que el fondo
         segment: {
           borderColor: ctx => ctx.p1.parsed.y < threshold ? 'rgb(255, 0, 0)' : 'rgb(60, 186, 159)',
           backgroundColor: ctx => ctx.p1.parsed.y < threshold ? 'rgba(255, 0, 0, 0.5)' : 'rgba(60, 186, 159, 0.5)',
-        }
+        },
+        pointHoverRadius: 5,
       },
     ],
   };

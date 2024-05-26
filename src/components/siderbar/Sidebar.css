@@ -1,22 +1,17 @@
+/* Sidebar.css */
+
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  
 }
 
-
-
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-
 
 .icon-logo {
   width: 40px;
@@ -28,14 +23,10 @@
   border-radius: 50%;
 }
 
-
-
-
 .toggle-theme-btn {
   display: flex;
   justify-content: end;
   align-items: center;
-
   margin-top: 0.5rem;
   margin-right: -2rem;
 }
@@ -47,26 +38,31 @@
   margin-right: -1rem !important;
   display: flex;
 }
-.ant-layout-sider-zero-width-trigger .anticon-bars{
-    font-size: 2rem;
+
+.ant-layout-sider-zero-width-trigger .anticon-bars {
+  font-size: 2rem;
 }
 
-.layout-dark{
+.layout-dark {
   background-color: RGB(0, 21, 37);
 }
 
-.siderbar{
-  height: 500px;
+.sidebar-light {
+  background-color: white;
 }
 
-.container-body-light{
+.sidebar-dark {
+  background-color: rgb(2, 21, 39);
+}
+
+.container-body-light {
   background-color: white;
   border-radius: 10px;
   padding: 24px 24px 24px;
   padding: 0.5rem 1em 0.5rem 1rem;
 }
 
-.container-body-dark{
+.container-body-dark {
   background-color: RGB(0, 21, 37);
   padding: 24px 24px 24px;
   border-radius: 10px;

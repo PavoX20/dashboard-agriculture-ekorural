@@ -6,11 +6,13 @@ import LinePlotLastDayHumedity from "./plotsLastDay/linePlotLastDayHumedity";
 import { GeneralData } from "./types/types";
 import LinePlotLastDayTemperature from "./plotsLastDay/linePlotLastDayTemperature";
 import LinePlotLastDayCO2 from "./plotsLastDay/linePlotLastDayCo2";
+import DataTable from "./TableMushrooms"; // Importa el nuevo componente DataTable
 import GreenLightIcon from "../../icons/GreenLightIcon";
 import RedLightIcon from "../../icons/RedLightIcon";
+import CombinedLinePlot from "./plotsLastDay/CombinedLinePlot";
 
 type DashboardProps = {
-  theme: boolean; // Correct definition of props
+  theme: boolean;
 };
 
 const DashboardHongos: React.FC<DashboardProps> = ({ theme }) => {
@@ -27,8 +29,6 @@ const DashboardHongos: React.FC<DashboardProps> = ({ theme }) => {
       if (data === null) return;
       setDataLastDay(data);
 
-      // Log para verificar los datos
-      console.log("Datos recibidos del backend:", data);
 
       // Obtener el último dato del array
       const latestData = data[data.length - 1];
@@ -58,101 +58,111 @@ const DashboardHongos: React.FC<DashboardProps> = ({ theme }) => {
   }, []);
 
   return (
-    <>
-  <div className="container-fluid container-body">
-    <div className="row row-body">
-      <div className="col-12">
-        <h3 style={{ color: theme ? 'white' : 'inherit' }}>Hongos Ostra</h3>
-      </div>
-    </div>
-    <br />
-    <div className="row">
-      <div className="col-sm-3 col-hum-co2 flex-column">
-        <p className="mushroom-text" style={{ color: theme ? 'white' : 'inherit' }}>
-          Humedad actual:
-          {humedity === null ? (
-            <span className="mushroom-value-notLoaded" style={{ color: theme ? 'white' : 'inherit' }}>
-              {"Cargando..."}
-            </span>
-          ) : (
-            <span className="mushroom-value" style={{ color: theme ? 'white' : 'inherit' }}>{humedity} %</span>
-          )}
-        </p>
-      </div>
-
-      <div className="col-sm-3 col-hum-co2 flex-column">
-        <p className="mushroom-text" style={{ color: theme ? 'white' : 'inherit' }}>
-          CO2 actual:
-          {co2 === null ? (
-            <span className="mushroom-value-notLoaded" style={{ color: theme ? 'white' : 'inherit' }}>
-              {"Cargando..."}
-            </span>
-          ) : (
-            <span className="mushroom-value" style={{ color: theme ? 'white' : 'inherit' }}>{co2} ppm</span>
-          )}
-        </p>
-      </div>
-
-      <div className="col-sm-3 col-hum-co2 flex-column">
-        <p className="mushroom-text" style={{ color: theme ? 'white' : 'inherit' }}>
-          Temperatura actual:
-          {temperature === null ? (
-            <span className="mushroom-value-notLoaded" style={{ color: theme ? 'white' : 'inherit' }}>
-              {"Cargando..."}
-            </span>
-          ) : (
-            <span className="mushroom-value" style={{ color: theme ? 'white' : 'inherit' }}>{temperature} ppm</span>
-          )}
-        </p>
-      </div>
-
-      <div className="col-sm-3 col-hum-co2 d-flex flex-column">
-        <p style={{ color: theme ? 'white' : 'inherit' }}>Estado del ventilador:</p>
-
-        <div className="d-flex justify-content-center align-items-center">
-          <div className="fan-box d-flex flex-column align-items-center justify-content-center">
-            {fanStatus === null ? (
-              <div className="mushroom-value-notLoaded" >
-                {"Cargando..."}
-              </div>
-            ) : fanStatus === "Activated" ? (
-              <>
-                <GreenLightIcon />
-                <p className="activated-deactivaded-text">Activado</p>
-              </>
-            ) : (
-              <>
-                <RedLightIcon />
-                <br />
-                <p className="activated-deactivaded-text">Desactivado</p>
-              </>
-            )}
-          </div>
+    <div className="container-fluid container-body">
+      <div className="row row-body">
+        <div className="col-12">
+          <h3 style={{ color: theme ? 'white' : 'inherit' }}>Hongos Ostra</h3>
         </div>
       </div>
       <br />
+      <div className="row">
+        <div className="col-sm-3 col-hum-co2 flex-column">
+          <p className="mushroom-text" style={{ color: theme ? 'white' : 'inherit' }}>
+            Humedad actual:
+            {humedity === null ? (
+              <span className="mushroom-value-notLoaded" style={{ color: theme ? 'white' : 'inherit' }}>
+                {"Cargando..."}
+              </span>
+            ) : (
+              <span className="mushroom-value" style={{ color: theme ? 'white' : 'inherit' }}>{humedity} %</span>
+            )}
+          </p>
+        </div>
 
-      <div
-        className="mushroom-value-lastUpdated"
-        style={{ marginTop: "-3rem", color: theme ? 'white' : 'inherit' }}
-      >
-        Datos actualizados hace {time} minuto(s)
+        <div className="col-sm-3 col-hum-co2 flex-column">
+          <p className="mushroom-text" style={{ color: theme ? 'white' : 'inherit' }}>
+            CO2 actual:
+            {co2 === null ? (
+              <span className="mushroom-value-notLoaded" style={{ color: theme ? 'white' : 'inherit' }}>
+                {"Cargando..."}
+              </span>
+            ) : (
+              <span className="mushroom-value" style={{ color: theme ? 'white' : 'inherit' }}>{co2} ppm</span>
+            )}
+          </p>
+        </div>
+
+        <div className="col-sm-3 col-hum-co2 flex-column">
+          <p className="mushroom-text" style={{ color: theme ? 'white' : 'inherit' }}>
+            Temperatura actual:
+            {temperature === null ? (
+              <span className="mushroom-value-notLoaded" style={{ color: theme ? 'white' : 'inherit' }}>
+                {"Cargando..."}
+              </span>
+            ) : (
+              <span className="mushroom-value" style={{ color: theme ? 'white' : 'inherit' }}>{temperature} ppm</span>
+            )}
+          </p>
+        </div>
+
+        <div className="col-sm-3 col-hum-co2 d-flex flex-column">
+          <p style={{ color: theme ? 'white' : 'inherit' }}>Estado del ventilador:</p>
+
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="fan-box d-flex flex-column align-items-center justify-content-center">
+              {fanStatus === null ? (
+                <div className="mushroom-value-notLoaded" >
+                  {"Cargando..."}
+                </div>
+              ) : fanStatus === "Activated" ? (
+                <>
+                  <GreenLightIcon />
+                  <p className="activated-deactivaded-text">Activado</p>
+                </>
+              ) : (
+                <>
+                  <RedLightIcon />
+                  <br />
+                  <p className="activated-deactivaded-text">Desactivado</p>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+        <br />
+
+        <div
+          className="mushroom-value-lastUpdated"
+          style={{  color: theme ? 'white' : 'inherit' }}
+        >
+          Datos actualizados hace {time} minuto(s)
+        </div>
+      </div>
+      <Divider />
+      <div className="row">
+        <div className="col-md-4 col-plot-metrics">
+          <LinePlotLastDayHumedity data={dataLastDay} theme={theme} threshold={24}/>
+        </div>
+        <div className="col-md-4 col-plot-metrics">
+          <LinePlotLastDayTemperature data={dataLastDay} theme={theme}/>
+        </div>
+        <div className="col-md-4 col-plot-metrics">
+          <LinePlotLastDayCO2 data={dataLastDay} theme={theme} threshold={440} />
+        </div>
+      </div>
+      <Divider />
+      <div className="row">
+        <div className="col-12 table">
+          <DataTable data={dataLastDay} /> 
+        </div>
+      </div>
+      <Divider />
+      <div className="row">
+        <div className="col-12 table">
+          <CombinedLinePlot data={dataLastDay} theme={theme} tempThreshold={24} co2Threshold={440} humidityThreshold={24} title="Hola"/>
+        </div>
       </div>
     </div>
-    <Divider />
-    <div className="row">
-      <div className="col-md-4 col-plot-metrics">
-        <LinePlotLastDayHumedity data={dataLastDay} theme={theme}/>
-      </div>
-      <div className="col-md-4 col-plot-metrics">
-        <LinePlotLastDayTemperature data={dataLastDay} theme={theme}/>
-      </div>
-      <div className="col-md-4 col-plot-metrics">
-        <LinePlotLastDayCO2 data={dataLastDay} theme={theme} threshold={440} />
-      </div>
-    </div>
-  </div>
-</>
   );
 };
 

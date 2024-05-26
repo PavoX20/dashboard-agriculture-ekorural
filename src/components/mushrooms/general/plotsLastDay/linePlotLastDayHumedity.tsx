@@ -5,7 +5,9 @@ import { ChartOptions, ChartData } from "chart.js";
 import "chartjs-adapter-date-fns";
 import { HumidityChartProps, GeneralData } from "../types/types";
 
-const LinePlotLastDayHumedity: React.FC<HumidityChartProps> = ({ data, theme }) => {
+const LinePlotLastDayHumedity: React.FC<HumidityChartProps> = ({ data, theme, threshold }) => {
+  const pointColor = data.map(item => (item.humidity ?? 0) < threshold ? 'rgb(255, 0, 0)' : 'rgb(60, 186, 159)');
+
   const chartData: ChartData<"line", { x: Date; y: number }[], Date> = {
     labels: data.map((item: GeneralData) => new Date(item.timestamp)),
     datasets: [
@@ -16,8 +18,14 @@ const LinePlotLastDayHumedity: React.FC<HumidityChartProps> = ({ data, theme }) 
           y: item.humidity,
         })),
         fill: false,
-        borderColor: theme ? "rgba(255, 255, 255, 0.87)" : "rgb(75, 192, 192)",
-        backgroundColor: theme ? "rgba(255, 255, 255, 0.5)" : "rgba(75, 192, 192, 0.5)",
+        pointRadius: 3,
+        pointBackgroundColor: pointColor,
+        pointBorderColor: pointColor,
+        pointHoverRadius: 5,
+        segment: {
+          borderColor: ctx => ctx.p1.parsed.y < threshold ? 'rgb(255, 0, 0)' : 'rgb(60, 186, 159)',
+          backgroundColor: ctx => ctx.p1.parsed.y < threshold ? 'rgba(255, 0, 0, 0.5)' : 'rgba(60, 186, 159, 0.5)',
+        },
       },
     ],
   };

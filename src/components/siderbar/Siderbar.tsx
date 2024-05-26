@@ -6,14 +6,14 @@ import MenuList from "./MenuList";
 import ToggleThemeButton from "./ToggleThemeButton";
 
 type DashboardProps = {
-  theme: boolean; // Correct definition of props
+  theme: boolean;
 };
 
 type SidebarProps = {
-  Dashboard: React.ComponentType<DashboardProps>; // Usa DashboardProps aquí
+  Dashboard: React.ComponentType<DashboardProps>;
 };
 
-const { Header, Sider } = Layout;
+const { Header, Sider, Content } = Layout;
 
 export const Sidebar = ({ Dashboard }: SidebarProps) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -25,56 +25,45 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
   };
 
   const changeCollapsedWidth = () => {
-    if (collapsedWidth == 80) {
+    if (collapsedWidth === 80) {
       setCollapsedWidth(0);
     } else {
       setCollapsedWidth(80);
     }
   };
 
-  useEffect(() => {}, []); // El array vacío asegura que el efecto solo se ejecute una vez
-
   return (
-    <Layout hasSider>
-      <Layout>
-        <Sider
-          collapsible={true}
-          collapsedWidth={collapsedWidth}
-          collapsed={collapsed}
-          onCollapse={setCollapsed}
-          onBreakpoint={changeCollapsedWidth}
-          breakpoint="sm"
-          className="sidebar"
-          theme={darkTheme ? "dark" : "light"}
-          style={{ height: "100vh", columnWidth: "200px" }}
+    <Layout hasSider style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible={true}
+        collapsedWidth={collapsedWidth}
+        collapsed={collapsed}
+        onCollapse={setCollapsed}
+        onBreakpoint={changeCollapsedWidth}
+        breakpoint="sm"
+        className={`sidebar ${darkTheme ? "sidebar-dark" : "sidebar-light"}`}
+        theme={darkTheme ? "dark" : "light"}
+        style={{ height: "100vh", overflow: "auto", position: "fixed", left: 0, top: 0 }}
+      >
+        <Logo darkTheme={darkTheme} />
+        <MenuList theme={darkTheme} />
+      </Sider>
+      <Layout style={{ marginLeft: collapsed ? collapsedWidth : 200 }}>
+        <Header
+          className="header"
+          style={{ backgroundColor: darkTheme ? "rgb(2, 21, 39)" : "white" }}
         >
-          <Logo darkTheme={darkTheme} />
-          <MenuList theme={darkTheme} />
-        </Sider>
-
-        <Layout>
-          <Header
-            className="header"
-            style={{ backgroundColor: darkTheme ? "rgb(2, 21, 39)" : "white" }}
-          >
-            <h1 className="" style={{marginLeft:'20px' ,color: darkTheme ? "white" : "black" }}>
-              Dashboard
-            </h1>
-            <ToggleThemeButton
-              darkTheme={darkTheme}
-              toggleTheme={toggleTheme}
-            />
-          </Header>
-
-          <Layout className={darkTheme ? 'layout-dark' : 'layout-light'}>
-            <div className={`container-fluid ${darkTheme ? 'container-body-dark' : 'container-body-light'}`}>
-              <Dashboard theme={darkTheme} />
-            </div>
-          </Layout>
-        </Layout>
+          <h1 style={{ marginLeft: '20px', color: darkTheme ? "white" : "black" }}>
+            Dashboard
+          </h1>
+          <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
+        </Header>
+        <Content className={darkTheme ? 'layout-dark' : 'layout-light'}>
+          <div className={`container-fluid ${darkTheme ? 'container-body-dark' : 'container-body-light'}`}>
+            <Dashboard theme={darkTheme} />
+          </div>
+        </Content>
       </Layout>
     </Layout>
   );
 };
-
-

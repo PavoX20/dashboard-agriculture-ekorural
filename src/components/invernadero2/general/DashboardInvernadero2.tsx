@@ -5,18 +5,18 @@ import { Divider } from "antd";
 import LinePlotLastDayHumedity from "./plotsLastDay/linePlotLastDayHumedity";
 import { GeneralData } from "./types/types";
 import LinePlotLastDayTemperature from "./plotsLastDay/linePlotLastDayTemperature";
+import DataTableInvernadero from "./DataTableInvernadero"; // Importa el nuevo componente DataTableInvernadero
 
 const DashboardInvernadero1 = () => {
   const [humedity, setHumidity] = useState<number | null>(null);
-  const [co2, setCo2] = useState<number | null>(null);
-  
+  const [temperature, setTemperature] = useState<number | null>(null);
   const [time, setTime] = useState<string | null>(null);
   const [dataLastDay, setDataLastDay] = useState<GeneralData[]>([]);
 
   const fetchHumedityLastDay = async () => {
     try {
       const data = await humedityLastDay();
-      if(data === null) return;
+      if (data === null) return;
       setDataLastDay(data);
 
       // Log para verificar los datos
@@ -25,10 +25,10 @@ const DashboardInvernadero1 = () => {
       // Obtener el último dato del array
       const latestData = data[data.length - 1];
       console.log("Últimos datos recibidos:", latestData);
-      
+
       if (latestData) {
         setHumidity(latestData.humidity);
-        setCo2(latestData.co2); // Asegúrate de que el campo sea correcto
+        setTemperature(latestData.temperature);
 
         const lastUpdated = new Date(latestData.timestamp);
         const now = new Date();
@@ -71,15 +71,14 @@ const DashboardInvernadero1 = () => {
           <div className="col-sm-4 col-hum-co2 flex-column">
             <p className="mushroom-text">
               Temperatura actual:
-              {co2 === null ? (
+              {temperature === null ? (
                 <span className="mushroom-value-notLoaded">{"Cargando..."}</span>
               ) : (
-                <span className="mushroom-value">{co2} &#176;C</span>
+                <span className="mushroom-value">{temperature} &#176;C</span>
               )}
             </p>
           </div>
 
-          
           <br />
           <p className="mushroom-value-lastUpdated">
             Datos actualizados hace {time} minuto(s)
@@ -93,7 +92,12 @@ const DashboardInvernadero1 = () => {
           <div className="col-md-6 col-plot-metrics">
             <LinePlotLastDayTemperature data={dataLastDay} />
           </div>
-          
+        </div>
+        <Divider />
+        <div className="row">
+          <div className="col-12">
+            <DataTableInvernadero data={dataLastDay} /> {/* Añade el nuevo componente DataTableInvernadero */}
+          </div>
         </div>
       </div>
     </>

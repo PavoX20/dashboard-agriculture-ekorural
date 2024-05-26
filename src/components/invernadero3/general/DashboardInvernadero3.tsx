@@ -5,18 +5,18 @@ import { Divider } from "antd";
 import LinePlotLastDayHumedity from "./plotsLastDay/linePlotLastDayHumedity";
 import { GeneralData } from "./types/types";
 import LinePlotLastDayTemperature from "./plotsLastDay/linePlotLastDayTemperature";
+import DataTableInvernadero3 from "./DataTableInvernadero3"; // Importa el nuevo componente DataTableInvernadero3
 
-const DashboardInvernadero1 = () => {
+const DashboardInvernadero3 = () => {
   const [humedity, setHumidity] = useState<number | null>(null);
   const [co2, setCo2] = useState<number | null>(null);
-  
   const [time, setTime] = useState<string | null>(null);
   const [dataLastDay, setDataLastDay] = useState<GeneralData[]>([]);
 
   const fetchHumedityLastDay = async () => {
     try {
       const data = await humedityLastDay();
-      if(data === null) return;
+      if (data === null) return;
       setDataLastDay(data);
 
       // Log para verificar los datos
@@ -25,7 +25,7 @@ const DashboardInvernadero1 = () => {
       // Obtener el último dato del array
       const latestData = data[data.length - 1];
       console.log("Últimos datos recibidos:", latestData);
-      
+
       if (latestData) {
         setHumidity(latestData.humidity);
         setCo2(latestData.co2); // Asegúrate de que el campo sea correcto
@@ -79,7 +79,6 @@ const DashboardInvernadero1 = () => {
             </p>
           </div>
 
-          
           <br />
           <p className="mushroom-value-lastUpdated">
             Datos actualizados hace {time} minuto(s)
@@ -93,11 +92,16 @@ const DashboardInvernadero1 = () => {
           <div className="col-md-6 col-plot-metrics">
             <LinePlotLastDayTemperature data={dataLastDay} />
           </div>
-          
+        </div>
+        <Divider />
+        <div className="row">
+          <div className="col-12">
+            <DataTableInvernadero3 data={dataLastDay} /> {/* Añade el nuevo componente DataTableInvernadero3 */}
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-export default DashboardInvernadero1;
+export default DashboardInvernadero3;

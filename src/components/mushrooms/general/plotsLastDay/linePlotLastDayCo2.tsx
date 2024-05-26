@@ -6,7 +6,6 @@ import 'chartjs-adapter-date-fns';
 import { CO2ChartProps, GeneralData } from '../types/types';
 
 const LinePlotLastDayCO2: React.FC<CO2ChartProps> = ({ data, theme, threshold }) => {
-  
   const pointColor = data.map(item => (item.co2 ?? 0) < threshold ? 'rgb(255, 0, 0)' : 'rgb(60, 186, 159)');
 
   const chartData: ChartData<'line', { x: Date; y: number }[], Date> = {
@@ -21,12 +20,14 @@ const LinePlotLastDayCO2: React.FC<CO2ChartProps> = ({ data, theme, threshold })
         fill: false,
         pointRadius: 3,
         pointBackgroundColor: pointColor,
-        pointBorderColor: pointColor, // Mismo color que el fondo
+        pointBorderColor: pointColor,
         segment: {
           borderColor: ctx => ctx.p1.parsed.y < threshold ? 'rgb(255, 0, 0)' : 'rgb(60, 186, 159)',
           backgroundColor: ctx => ctx.p1.parsed.y < threshold ? 'rgba(255, 0, 0, 0.5)' : 'rgba(60, 186, 159, 0.5)',
         },
         pointHoverRadius: 5,
+        borderColor: 'rgb(60, 186, 159)', // Cambia el color de la línea a verde
+        backgroundColor: 'rgba(60, 186, 159, 0.5)', // Cambia el color de fondo a verde
       },
     ],
   };

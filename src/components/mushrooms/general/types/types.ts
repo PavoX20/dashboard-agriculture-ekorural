@@ -9,6 +9,7 @@ export interface GeneralData {
 export type HumidityChartProps = {
   data: GeneralData[];
   theme: boolean;
+  threshold: number;
 };
 
 export interface TemperatureChartProps {
@@ -42,4 +43,14 @@ export interface DataPoint {
   timestamp: string;
   temperature?: number;
 }
+
+export interface CombinedChartProps {
+  data: GeneralData[];
+  theme: boolean;
+  tempThreshold: number;
+  humidityThreshold: number;
+  co2Threshold: number;
+  title: string;
+}
+
 

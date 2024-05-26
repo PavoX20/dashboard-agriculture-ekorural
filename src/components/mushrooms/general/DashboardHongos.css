@@ -47,12 +47,7 @@
 .mushroom-text{
   font-size: 0.8rem;
 }
-/*{fanStatus === null ? (
-    <div className="mushroom-value-notLoaded">
-      {"Cargando..."}
-    </div>
-  ) : fanStatus === "Activated" ? (
-    <div className="mushroom-value">{"Activado"}</div>
-  ) : (
-    <div className="mushroom-value">{"Desactivado"}</div>
-  )}
+.table{
+    
+    width: 50%;
+}

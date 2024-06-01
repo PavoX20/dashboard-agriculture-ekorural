@@ -1,5 +1,4 @@
 // types.ts
-
 export interface GeneralData {
   timestamp: string;
   humidity: number;
@@ -13,11 +12,11 @@ export type HumidityChartProps = {
   threshold: number;
 };
 
-export interface TemperatureChartProps {
+export type TemperatureChartProps = {
   data: GeneralData[];
   theme: boolean;
-  threshold: number; // Agrega el umbral para temperatura
-}
+  threshold: number;
+};
 
 export type CO2ChartProps = {
   data: GeneralData[];
@@ -51,5 +50,5 @@ export interface Thresholds {
 
 export type DashboardProps = {
   theme: boolean;
-  thresholds: Thresholds; // Incluye los umbrales como parte de las propiedades
+  thresholds: Thresholds;
 };

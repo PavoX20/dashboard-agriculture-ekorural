@@ -1,4 +1,3 @@
-// TemperatureChart.tsx
 import React from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
@@ -8,8 +7,11 @@ import { TemperatureChartProps, GeneralData } from "../types/types";
 
 const LinePlotLastDayTemperature: React.FC<TemperatureChartProps> = ({
   data,
-  theme // Asegúrate de recibir 'theme' como prop.
+  theme,
+  threshold // Asegúrate de recibir 'threshold' como prop.
 }) => {
+  const pointColor = data.map(item => (item.temperature ?? 0) < threshold ? 'rgb(255, 0, 0)' : 'rgb(60, 186, 159)');
+
   const chartData: ChartData<"line", { x: Date; y: number }[], Date> = {
     labels: data.map((item: GeneralData) => new Date(item.timestamp)),
     datasets: [
@@ -20,8 +22,14 @@ const LinePlotLastDayTemperature: React.FC<TemperatureChartProps> = ({
           y: item.temperature ?? 0,
         })),
         fill: false,
-        borderColor: theme ? "rgba(255, 255, 255, 0.87)" : "rgb(255, 99, 132)",
-        backgroundColor: theme ? "rgba(255, 255, 255, 0.5)" : "rgba(255, 99, 132, 0.5)",
+        pointRadius: 3,
+        pointBackgroundColor: pointColor,
+        pointBorderColor: pointColor,
+        pointHoverRadius: 5,
+        segment: {
+          borderColor: ctx => ctx.p1.parsed.y < threshold ? 'rgb(255, 0, 0)' : 'rgb(60, 186, 159)',
+          backgroundColor: ctx => ctx.p1.parsed.y < threshold ? 'rgba(255, 0, 0, 0.5)' : 'rgba(60, 186, 159, 0.5)',
+        },
       },
     ],
   };

@@ -58,13 +58,18 @@
 .container-body-light {
   background-color: white;
   border-radius: 10px;
-  padding: 24px 24px 24px;
-  padding: 0.5rem 1em 0.5rem 1rem;
+  padding: 24px;
 }
 
 .container-body-dark {
   background-color: RGB(0, 21, 37);
-  padding: 24px 24px 24px;
+  padding: 24px;
   border-radius: 10px;
-  padding: 0.5rem 1em 0.5rem 1rem;
+}
+
+.layout-content-light{
+  background-color: RGB(245, 245, 245);
+}
+.layout-content-dark{
+  background-color: RGB(0, 21, 37);
 }

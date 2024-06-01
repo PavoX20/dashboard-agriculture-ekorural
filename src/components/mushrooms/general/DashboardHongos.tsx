@@ -3,7 +3,7 @@ import "./DashboardHongos.css";
 import { humedityLastDay } from "./fetchData/fetchData";
 import { Divider } from "antd";
 import LinePlotLastDayHumedity from "./plotsLastDay/linePlotLastDayHumedity";
-import { GeneralData } from "./types/types";
+import { GeneralData, DashboardProps } from "./types/types";
 import LinePlotLastDayTemperature from "./plotsLastDay/linePlotLastDayTemperature";
 import LinePlotLastDayCO2 from "./plotsLastDay/linePlotLastDayCo2";
 import DataTable from "./TableMushrooms"; // Importa el nuevo componente DataTable
@@ -11,11 +11,7 @@ import GreenLightIcon from "../../icons/GreenLightIcon";
 import RedLightIcon from "../../icons/RedLightIcon";
 import CombinedLinePlot from "./plotsLastDay/CombinedLinePlot";
 
-type DashboardProps = {
-  theme: boolean;
-};
-
-const DashboardHongos: React.FC<DashboardProps> = ({ theme }) => {
+const DashboardHongos: React.FC<DashboardProps> = ({ theme, thresholds }) => {
   const [humedity, setHumidity] = useState<number | null>(null);
   const [co2, setCo2] = useState<number | null>(null);
   const [temperature, setTemperature] = useState<number | null>(null);
@@ -28,7 +24,6 @@ const DashboardHongos: React.FC<DashboardProps> = ({ theme }) => {
       const data = await humedityLastDay();
       if (data === null) return;
       setDataLastDay(data);
-
 
       // Obtener el último dato del array
       const latestData = data[data.length - 1];
@@ -141,13 +136,13 @@ const DashboardHongos: React.FC<DashboardProps> = ({ theme }) => {
       <Divider />
       <div className="row">
         <div className="col-md-4 col-plot-metrics">
-          <LinePlotLastDayHumedity data={dataLastDay} theme={theme} threshold={24}/>
+          <LinePlotLastDayHumedity data={dataLastDay} theme={theme} threshold={thresholds.hongoHumidity}/>
         </div>
         <div className="col-md-4 col-plot-metrics">
-          <LinePlotLastDayTemperature data={dataLastDay} theme={theme}/>
+          <LinePlotLastDayTemperature data={dataLastDay} theme={theme} threshold={thresholds.hongoTemp}/>
         </div>
         <div className="col-md-4 col-plot-metrics">
-          <LinePlotLastDayCO2 data={dataLastDay} theme={theme} threshold={440} />
+          <LinePlotLastDayCO2 data={dataLastDay} theme={theme} threshold={thresholds.hongoCO2} />
         </div>
       </div>
       <Divider />
@@ -159,7 +154,14 @@ const DashboardHongos: React.FC<DashboardProps> = ({ theme }) => {
       <Divider />
       <div className="row">
         <div className="col-12 table">
-          <CombinedLinePlot data={dataLastDay} theme={theme} tempThreshold={24} co2Threshold={440} humidityThreshold={24} title="Hola"/>
+          <CombinedLinePlot 
+            data={dataLastDay} 
+            theme={theme} 
+            tempThreshold={thresholds.hongoTemp} 
+            co2Threshold={thresholds.hongoCO2} 
+            humidityThreshold={thresholds.hongoHumidity} 
+            title="Medidas Combinadas"
+          />
         </div>
       </div>
     </div>

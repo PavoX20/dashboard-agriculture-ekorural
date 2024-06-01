@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import "./DashboardInvernadero3.css";
+import "./DashboardInvernadero1.css";
 import { humedityLastDay } from "./fetchData/fetchData";
 import { Divider } from "antd";
 import LinePlotLastDayHumedity from "./plotsLastDay/linePlotLastDayHumedity";
 import { GeneralData } from "./types/types";
 import LinePlotLastDayTemperature from "./plotsLastDay/linePlotLastDayTemperature";
-import DataTableInvernadero3 from "./DataTableInvernadero3"; // Importa el nuevo componente DataTableInvernadero3
+import DataTableInvernadero from "./DataTableInvernadero"; // Importa el nuevo componente DataTableInvernadero
 
-const DashboardInvernadero3 = () => {
+const DashboardInvernadero1 = () => {
   const [humedity, setHumidity] = useState<number | null>(null);
-  const [co2, setCo2] = useState<number | null>(null);
+  const [temperature, setTemperature] = useState<number | null>(null);
   const [time, setTime] = useState<string | null>(null);
   const [dataLastDay, setDataLastDay] = useState<GeneralData[]>([]);
 
@@ -28,7 +28,7 @@ const DashboardInvernadero3 = () => {
 
       if (latestData) {
         setHumidity(latestData.humidity);
-        setCo2(latestData.co2); // Asegúrate de que el campo sea correcto
+        setTemperature(latestData.temperature);
 
         const lastUpdated = new Date(latestData.timestamp);
         const now = new Date();
@@ -52,7 +52,7 @@ const DashboardInvernadero3 = () => {
       <div className="container-fluid container-body">
         <div className="row row-body">
           <div className="col-12">
-            <h3>Invernadero 3</h3>
+            <h3>Invernadero 2</h3>
           </div>
         </div>
         <br />
@@ -71,10 +71,10 @@ const DashboardInvernadero3 = () => {
           <div className="col-sm-4 col-hum-co2 flex-column">
             <p className="mushroom-text">
               Temperatura actual:
-              {co2 === null ? (
+              {temperature === null ? (
                 <span className="mushroom-value-notLoaded">{"Cargando..."}</span>
               ) : (
-                <span className="mushroom-value">{co2} &#176;C</span>
+                <span className="mushroom-value">{temperature} &#176;C</span>
               )}
             </p>
           </div>
@@ -96,7 +96,7 @@ const DashboardInvernadero3 = () => {
         <Divider />
         <div className="row">
           <div className="col-12">
-            <DataTableInvernadero3 data={dataLastDay} /> {/* Añade el nuevo componente DataTableInvernadero3 */}
+            <DataTableInvernadero data={dataLastDay} /> {/* Añade el nuevo componente DataTableInvernadero */}
           </div>
         </div>
       </div>
@@ -104,4 +104,4 @@ const DashboardInvernadero3 = () => {
   );
 };
 
-export default DashboardInvernadero3;
+export default DashboardInvernadero1;

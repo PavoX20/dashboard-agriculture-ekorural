@@ -4,6 +4,7 @@ import MushroomIcon from "../icons/MushroomIcon";
 import PlantsIcon from "../icons/PlantsIcon";
 import Greenhouse from "../icons/Greenhouse";
 import { Link } from "react-router-dom";
+import { SettingOutlined } from "@ant-design/icons";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -57,11 +58,11 @@ const items: MenuProps["items"] = [
       "/dashboard/comparation_mushroom"
     ),
   ]),
-  
-  getItem("Invernadero 2", "inv2", <Greenhouse />, [
+
+  getItem("Invernadero 1", "inv1", <Greenhouse />, [
     getItem(
       "General",
-      "gInv2",
+      "gInv1",
       undefined,
       undefined,
       undefined,
@@ -76,10 +77,10 @@ const items: MenuProps["items"] = [
       "/dashboard/comparation_tomato_wifi"
     ),
   ]),
-  getItem("Invernadero 3", "inv3", <Greenhouse />, [
+  getItem("Invernadero 2", "inv2", <Greenhouse />, [
     getItem(
       "General",
-      "gInv3",
+      "gInv2",
       undefined,
       undefined,
       undefined,
@@ -87,13 +88,14 @@ const items: MenuProps["items"] = [
     ),
     getItem(
       "Comparación",
-      "inv3Comparation",
+      "inv2Comparation",
       undefined,
       undefined,
       undefined,
       "/dashboard/comparation_tomato_lora"
     ),
   ]),
+  getItem("Configuración", "settings", <SettingOutlined style={{fontSize: "20px"}} />, undefined, undefined, "/dashboard/settings"),
 ];
 
 interface MenuListProps {
@@ -109,6 +111,7 @@ const MenuList = ({ theme }: MenuListProps) => {
       mode="inline"
       items={items}
       theme={theme ? "dark" : "light"}
+      style={{ fontSize: "1.1rem" }}
     />
   );
 };

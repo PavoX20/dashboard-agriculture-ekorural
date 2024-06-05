@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Input, Form, Button } from "antd";
 import "./Settings.css";
 import { ThresholdContext } from "../../context/ThresholdContext";
-import { DashboardProps } from "./types/types";
+import { DashboardProps } from "./../mushrooms/general/types/types";
 
 const Settings: React.FC<DashboardProps> = ({ theme }) => {
   const { thresholds, setThresholds } = useContext(ThresholdContext);
@@ -26,7 +26,7 @@ const Settings: React.FC<DashboardProps> = ({ theme }) => {
       setButtonText("Guardado");
       setTimeout(() => {
         setButtonText("Guardar Umbrales");
-      }, 1000);
+      }, 5000);
     }, 1000);
   };
 

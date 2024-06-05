@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { Thresholds } from "../components/settings/types/types";
+import { Thresholds } from "./types/types";
 
 type ThresholdContextType = {
   thresholds: Thresholds;

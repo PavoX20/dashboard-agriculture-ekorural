@@ -40,7 +40,7 @@ const items: MenuProps["items"] = [
     undefined,
     "/dashboard"
   ),
-  getItem("Hongos ostra", "hongos", <MushroomIcon />, [
+  getItem("Hongos", "hongos", <MushroomIcon />, [
     getItem(
       "General",
       "gMushroom",
@@ -66,7 +66,7 @@ const items: MenuProps["items"] = [
       undefined,
       undefined,
       undefined,
-      "/dashboard/tomato_wifi"
+      "/dashboard/invernadero_1"
     ),
     getItem(
       "Comparación",
@@ -74,7 +74,7 @@ const items: MenuProps["items"] = [
       undefined,
       undefined,
       undefined,
-      "/dashboard/comparation_tomato_wifi"
+      "/dashboard/comparation_invernadero_1"
     ),
   ]),
   getItem("Invernadero 2", "inv2", <Greenhouse />, [
@@ -84,7 +84,7 @@ const items: MenuProps["items"] = [
       undefined,
       undefined,
       undefined,
-      "/dashboard/tomato_lora"
+      "/dashboard/invernadero_2"
     ),
     getItem(
       "Comparación",
@@ -92,7 +92,25 @@ const items: MenuProps["items"] = [
       undefined,
       undefined,
       undefined,
-      "/dashboard/comparation_tomato_lora"
+      "/dashboard/comparation_invernadero_2"
+    ),
+  ]),
+  getItem("Invernadero 3", "inv3", <Greenhouse />, [
+    getItem(
+      "General",
+      "gInv3",
+      undefined,
+      undefined,
+      undefined,
+      "/dashboard/invernadero_3"
+    ),
+    getItem(
+      "Comparación",
+      "inv2Comparation",
+      undefined,
+      undefined,
+      undefined,
+      "/dashboard/comparation_invernadero_3"
     ),
   ]),
   getItem("Configuración", "settings", <SettingOutlined style={{fontSize: "20px"}} />, undefined, undefined, "/dashboard/settings"),

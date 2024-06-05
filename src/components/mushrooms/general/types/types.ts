@@ -1,3 +1,5 @@
+// src/types/types.ts
+
 export interface GeneralData {
   timestamp: string;
   humidity: number;

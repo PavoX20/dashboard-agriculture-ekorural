@@ -1,0 +1,71 @@
+// CO2Chart.tsx
+import React from 'react';
+import { Line } from 'react-chartjs-2';
+import 'chart.js/auto';
+import { ChartOptions, ChartData } from 'chart.js';
+import 'chartjs-adapter-date-fns';
+import { CO2ChartProps, GeneralData } from '../types/types';  // Asume que tienes un archivo de tipos similar
+
+const LinePlotLastDayCO2: React.FC<CO2ChartProps> = ({ data }) => {
+  const chartData: ChartData<'line', { x: Date; y: number }[], Date> = {
+    labels: data.map((item: GeneralData) => new Date(item.timestamp)),
+    datasets: [
+      {
+        label: 'CO2 (ppm)',  // ppm: partes por millón, una unidad común para medir el CO2
+        data: data.map(item => ({
+            x: new Date(item.timestamp),
+            y: item.co2 ?? 0,  // Asegurarse de que los datos no sean nulos
+        })),
+        fill: false,
+        borderColor: 'rgb(60, 186, 159)',
+        backgroundColor: 'rgba(60, 186, 159, 0.5)',
+      },
+    ],
+  };
+
+  const options: ChartOptions<'line'> = {
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'hour',
+          displayFormats: {
+            hour: 'HH:mm'
+          }
+        },
+        title: {
+          display: true,
+          text: 'Hora del día',
+        },
+      },
+      y: {
+        beginAtZero: false,
+        title: {
+          display: true,
+          text: 'CO2 (ppm)',
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top' as 'top',
+      },
+      title: {
+        display: true,
+        text: 'Niveles de CO2 durante el último día',
+        font: {
+          size: 16
+        },
+        color: '#333',
+        padding: 20
+      }
+    }, 
+    responsive: true,
+    maintainAspectRatio: false
+  };
+
+  return <Line style={{ height: '500px' }} data={chartData} options={options} />;
+};
+
+export default LinePlotLastDayCO2;

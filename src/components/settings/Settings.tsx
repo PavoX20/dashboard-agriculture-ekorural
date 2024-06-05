@@ -1,12 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Input, Form, Button } from "antd";
 import "./Settings.css";
 import { ThresholdContext } from "../../context/ThresholdContext";
 import { DashboardProps } from "./types/types";
 
-const Settings: React.FC<DashboardProps> = ({ theme, thresholds }) => {
-  const { setThresholds } = useContext(ThresholdContext);
+const Settings: React.FC<DashboardProps> = ({ theme }) => {
+  const { thresholds, setThresholds } = useContext(ThresholdContext);
   const [localThresholds, setLocalThresholds] = useState(thresholds);
+  const [buttonText, setButtonText] = useState("Guardar Umbrales");
+
+  useEffect(() => {
+    setLocalThresholds(thresholds);
+  }, [thresholds]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -14,14 +19,22 @@ const Settings: React.FC<DashboardProps> = ({ theme, thresholds }) => {
   };
 
   const handleSubmit = () => {
+    setButtonText("Guardando...");
     setThresholds(localThresholds);
+    localStorage.setItem("thresholds", JSON.stringify(localThresholds));
+    setTimeout(() => {
+      setButtonText("Guardado");
+      setTimeout(() => {
+        setButtonText("Guardar Umbrales");
+      }, 1000);
+    }, 1000);
   };
 
   return (
-    <div className="container-fluid">
+    <div className="settings-container">
       <Form layout="vertical">
-        <div className="row">
-          <div className="col-md-4">
+        <div className="settings-row">
+          <div className="settings-col">
             <h4>Configuración Invernadero Hongos Ostra</h4>
             <Form.Item label="Umbral Temperatura">
               <Input
@@ -52,7 +65,7 @@ const Settings: React.FC<DashboardProps> = ({ theme, thresholds }) => {
             </Form.Item>
           </div>
 
-          <div className="col-md-4">
+          <div className="settings-col">
             <h4>Configuración Invernadero 1</h4>
             <Form.Item label="Umbral Temperatura">
               <Input
@@ -74,7 +87,7 @@ const Settings: React.FC<DashboardProps> = ({ theme, thresholds }) => {
             </Form.Item>
           </div>
 
-          <div className="col-md-4">
+          <div className="settings-col">
             <h4>Configuración Invernadero 2</h4>
             <Form.Item label="Umbral Temperatura">
               <Input
@@ -98,8 +111,8 @@ const Settings: React.FC<DashboardProps> = ({ theme, thresholds }) => {
         </div>
         <div className="row">
           <div className="col-12 d-flex justify-content-end">
-            <Button type="primary" onClick={handleSubmit}>
-              Guardar Umbrales
+            <Button type="primary" className="save-button" onClick={handleSubmit}>
+              {buttonText}
             </Button>
           </div>
         </div>

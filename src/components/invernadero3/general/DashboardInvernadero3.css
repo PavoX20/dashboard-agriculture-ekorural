@@ -1,26 +1,26 @@
+
 .mushroom-value{
     font-size: 1.3rem;
     font-weight: bold;
     margin-left: 10px;
-  }
-  
-  .mushroom-value-lastUpdated{
+}
+
+.mushroom-value-lastUpdated{
     font-size: 0.8rem;
     color: gray;
-  }
-  
-  .mushroom-value-notLoaded{
+}
+
+.mushroom-value-notLoaded{
     font-size: 1rem;
     font-weight: bold;
     margin-left: 10px;
     color: gray;
-  }
-  .col-plot-metrics{
+}
+.col-plot-metrics{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-top: 10px;
     height: 500px;
-  }
-  
+}

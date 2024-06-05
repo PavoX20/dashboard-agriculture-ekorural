@@ -1,32 +1,36 @@
 .settings-container {
-    padding: 20px;
-  }
-  
-  .settings-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .settings-col {
-    flex: 1;
-    padding: 10px;
-  }
-  
-  .input-text {
-    margin-bottom: 10px;
-    width: 100%;
-  }
-  
-  .save-button {
-    display: block;
-    margin: 0 auto;
-    background-color: #1890ff;
-    color: white;
-    border: none;
-  }
-  
-  .save-button:hover {
-    background-color: #40a9ff;
-  }
-  
+  padding: 20px;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.settings-col {
+  flex: 1;
+  padding: 10px;
+  border-right: 2px solid #ccc;
+}
+
+.settings-col:last-child {
+  border-right: none;
+}
+
+.input-text {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.save-button {
+  display: block;
+  margin: 0 auto;
+  background-color: #1890ff;
+  color: white;
+  border: none;
+}
+
+.save-button:hover {
+  background-color: #40a9ff;
+}

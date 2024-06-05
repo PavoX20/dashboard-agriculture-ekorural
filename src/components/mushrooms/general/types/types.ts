@@ -1,5 +1,3 @@
-// types.ts
-
 export interface GeneralData {
   timestamp: string;
   humidity: number;
@@ -52,4 +50,9 @@ export interface Thresholds {
 export type DashboardProps = {
   theme: boolean;
   thresholds: Thresholds; // Incluye los umbrales como parte de las propiedades
+};
+
+export type DataTableProps = {
+  data: GeneralData[];
+  theme: boolean;
 };

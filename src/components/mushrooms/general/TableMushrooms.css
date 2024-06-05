@@ -1,3 +1,4 @@
+/* TableMushrooms.css */
 .dark-theme .ant-table {
   background: rgb(2, 21, 39) !important;
   color: white;
@@ -19,10 +20,6 @@
 .dark-theme .ant-table-tbody > tr:hover > td {
   background: rgba(255, 255, 255, 0.1) !important;
   color: white;
-}
-
-.dark-theme .ant-pagination-item-active {
-  background-color: rgb(2, 21, 39);
 }
 
 .light-theme .ant-table {
@@ -48,15 +45,34 @@
   color: black;
 }
 
-.light-theme .ant-pagination-item-active {
-  background-color: #fff;
-  color: black;
+.dark-theme .ant-pagination-item a,
+.dark-theme .ant-pagination-prev a,
+.dark-theme .ant-pagination-next a {
+  color: white !important;
 }
 
-.ant-pagination-item a {
-  color: inherit;
+.dark-theme .ant-pagination-item-active a {
+  color: black !important;
 }
 
-.ant-pagination-item-active a {
-  color: inherit !important;
+.light-theme .ant-pagination-item a,
+.light-theme .ant-pagination-prev a,
+.light-theme .ant-pagination-next a {
+  color: black !important;
+}
+
+.light-theme .ant-pagination-item-active a {
+  color: black !important;
+}
+
+.dark-theme .ant-pagination-prev .ant-pagination-item-link,
+.dark-theme .ant-pagination-next .ant-pagination-item-link {
+  color: white !important;
+  border: 1px solid white;
+}
+
+.light-theme .ant-pagination-prev .ant-pagination-item-link,
+.light-theme .ant-pagination-next .ant-pagination-item-link {
+  color: black !important;
+  border: 1px solid black;
 }

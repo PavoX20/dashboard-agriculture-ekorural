@@ -1,4 +1,5 @@
 // types.ts
+
 export interface GeneralData {
   timestamp: string;
   humidity: number;
@@ -12,11 +13,11 @@ export type HumidityChartProps = {
   threshold: number;
 };
 
-export type TemperatureChartProps = {
+export interface TemperatureChartProps {
   data: GeneralData[];
   theme: boolean;
   threshold: number;
-};
+}
 
 export type CO2ChartProps = {
   data: GeneralData[];
@@ -46,9 +47,16 @@ export interface Thresholds {
   inv1Humidity: number;
   inv2Temp: number;
   inv2Humidity: number;
+  inv3Temp: number;
+  inv3Humidity: number;
 }
 
 export type DashboardProps = {
   theme: boolean;
   thresholds: Thresholds;
+};
+
+export type DataTableProps = {
+  data: GeneralData[];
+  theme: boolean;
 };

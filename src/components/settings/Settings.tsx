@@ -108,6 +108,28 @@ const Settings: React.FC<DashboardProps> = ({ theme }) => {
               />
             </Form.Item>
           </div>
+
+          <div className="settings-col">
+            <h4>Configuración Invernadero 3</h4>
+            <Form.Item label="Umbral Temperatura">
+              <Input
+                className="input-text"
+                placeholder="Umbral Temperatura"
+                name="inv3Temp"
+                value={localThresholds.inv3Temp}
+                onChange={handleChange}
+              />
+            </Form.Item>
+            <Form.Item label="Umbral Humedad">
+              <Input
+                className="input-text"
+                placeholder="Umbral Humedad"
+                name="inv3Humidity"
+                value={localThresholds.inv3Humidity}
+                onChange={handleChange}
+              />
+            </Form.Item>
+          </div>
         </div>
         <div className="row">
           <div className="col-12 d-flex justify-content-end">

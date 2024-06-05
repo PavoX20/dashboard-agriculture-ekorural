@@ -60,6 +60,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, theme }) => {
       style={{
         background: theme ? 'rgb(2, 21, 39)' : '#fff',
         color: theme ? 'white' : 'black',
+        border: '2px solid white',
+        borderRadius: '8px'
       }}
       className={theme ? 'dark-theme' : 'light-theme'}
     />

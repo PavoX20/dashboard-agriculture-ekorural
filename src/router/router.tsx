@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Sidebar } from "../components/siderbar/Siderbar";
 import DashboardHongos from "../components/mushrooms/general/DashboardHongos";
-import General from "../components/general/General";
+import DashboardGeneral from "../components/general/general";
 import ComparationValues from "../components/mushrooms/comparation/ComparationValues";
 import DashboardInvernadero1 from "../components/invernadero1/general/DashboardInvernadero1";
 import DashboardInvernadero2 from "../components/invernadero2/general/DashboardInvernadero2";
@@ -18,7 +18,7 @@ function App() {
     <ThresholdProvider>
       <Router>
         <Routes>
-          <Route path="/dashboard" element={<Sidebar Dashboard={General} />} />
+          <Route path="/dashboard" element={<Sidebar Dashboard={DashboardGeneral} />} />
           <Route
             path="/dashboard/mushroom"
             element={<Sidebar Dashboard={DashboardHongos} />}

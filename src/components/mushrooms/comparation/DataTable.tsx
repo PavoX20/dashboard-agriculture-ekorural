@@ -1,11 +1,14 @@
 import React from 'react';
 import { Table } from 'antd';
-import { DataTableProps } from './types/types';
-import './TableInvernadero.css';
+import type { GeneralData } from './types/types';
+import './TableMushrooms.css';
 
+type DataTableProps = {
+  data: GeneralData[];
+  theme: boolean;
+};
 
-
-const DataTableInvernadero: React.FC<DataTableProps> = ({ data, theme }) => {
+const DataTable: React.FC<DataTableProps> = ({ data, theme }) => {
   const columns = [
     {
       title: 'Fecha',
@@ -20,29 +23,45 @@ const DataTableInvernadero: React.FC<DataTableProps> = ({ data, theme }) => {
       render: (text: string) => <span style={{ color: theme ? 'white' : 'black' }}>{text}</span>,
     },
     {
-      title: 'Humedad',
-      dataIndex: 'humidity',
-      key: 'humidity',
+      title: 'Tipo',
+      dataIndex: 'type',
+      key: 'type',
       render: (text: string) => <span style={{ color: theme ? 'white' : 'black' }}>{text}</span>,
     },
     {
-      title: 'Temperatura',
-      dataIndex: 'temperature',
-      key: 'temperature',
+      title: 'Valor',
+      dataIndex: 'value',
+      key: 'value',
       render: (text: string) => <span style={{ color: theme ? 'white' : 'black' }}>{text}</span>,
     },
   ];
 
-  const formattedData = data
-    .map((item) => {
-      const date = new Date(item.timestamp);
-      return {
-        ...item,
+  const formattedData = data.flatMap((item) => {
+    const date = new Date(item.timestamp);
+    return [
+      {
         date: date.toLocaleDateString(),
         time: date.toLocaleTimeString(),
-      };
-    })
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        type: 'Humedad',
+        value: item.humidity,
+        timestamp: item.timestamp,
+      },
+      {
+        date: date.toLocaleDateString(),
+        time: date.toLocaleTimeString(),
+        type: 'Temperatura',
+        value: item.temperature,
+        timestamp: item.timestamp,
+      },
+      {
+        date: date.toLocaleDateString(),
+        time: date.toLocaleTimeString(),
+        type: 'CO2',
+        value: item.co2,
+        timestamp: item.timestamp,
+      },
+    ];
+  }).sort((a, b) => b.timestamp - a.timestamp);
 
   return (
     <Table
@@ -54,11 +73,11 @@ const DataTableInvernadero: React.FC<DataTableProps> = ({ data, theme }) => {
         background: theme ? 'rgb(2, 21, 39)' : '#fff',
         color: theme ? 'white' : 'black',
         border: '2px solid white',
-        borderRadius: '8px',
+        borderRadius: '8px'
       }}
       className={theme ? 'dark-theme' : 'light-theme'}
     />
   );
 };
 
-export default DataTableInvernadero;
+export default DataTable;

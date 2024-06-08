@@ -1,15 +1,10 @@
 import { useState, useContext } from "react";
 import { Layout } from "antd";
 import "./Sidebar.css";
-import Logo from "../icons/Logo";
 import MenuList from "./MenuList";
 import ToggleThemeButton from "./ToggleThemeButton";
-import { DashboardProps } from "../settings/types/types";
 import { ThresholdContext } from "../../context/ThresholdContext";
-
-type SidebarProps = {
-  Dashboard: React.ComponentType<DashboardProps>;
-};
+import UrkuwaykuLogo from "../icons/UrkuwaykuLogo";
 
 const { Header, Sider, Content } = Layout;
 
@@ -40,9 +35,20 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
           fontSize: "1.2em",
         }}
       >
-        <Logo darkTheme={darkTheme} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "10px 5px",
+          }}
+        >
+          <UrkuwaykuLogo />
+        </div>
+
         <MenuList theme={darkTheme} />
       </Sider>
+
       <Layout style={{ marginLeft: collapsed ? 80 : 220 }}>
         <Header
           className="header"
@@ -51,10 +57,11 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
           <h1
             style={{ marginLeft: "20px", color: darkTheme ? "white" : "black" }}
           >
-            Dashboard Ekorural
+            Dashboard Urkuwayku
           </h1>
           <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
         </Header>
+
         <Layout
           className={`content ${
             darkTheme ? "layout-content-dark" : "layout-content-light"

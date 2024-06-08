@@ -11,6 +11,10 @@ import type { DailyData } from "./fetchData/data.mjs";
 import { data } from "./fetchData/data.mjs";
 import MultiDayHumidityChart from "./plots/MultiDayHumedityChart";
 import MultiDayTemperatureChart from "./plots/MultiDayTemperatureChart";
+import DataTableTemperature from "./tables/DataTableTemperature";
+import DataTableHumidity from "./tables/DataTableHumidity";
+import DataTableCO2 from "./tables/DataTableCO2";
+import type { GeneralData } from "./types/types";
 
 type CheckboxValueType = GetProp<typeof Checkbox.Group, "value">[number];
 
@@ -31,7 +35,6 @@ const ComparationValues: React.FC = () => {
   const onChange = (list: CheckboxValueType[]) => {
     console.log("Newly received list:", list); // Debug: See incoming list
     if (list.length > 1) {
-      // Find the newly added item that wasn't already in the checkedList
       const latestSelection = list.find((item) => !checkedList.includes(item));
       if (latestSelection != null) setCheckedList([latestSelection]);
     } else {
@@ -43,9 +46,8 @@ const ComparationValues: React.FC = () => {
   const onChangeDate: DatePickerProps<Dayjs[]>["onChange"] = (dates) => {
     const newDates = Array.isArray(dates) ? dates : [dates];
     if (newDates.length > 2) {
-      // If more than two dates are attempted to be selected
       message.error(<h3>Solo se puede seleccionar hasta 2 fechas.</h3>, 5);
-      setSelectedDates(newDates.slice(0, 2)); // Optional: Limiting to the first two selected
+      setSelectedDates(newDates.slice(0, 2));
     } else {
       setSelectedDates(newDates);
     }
@@ -54,10 +56,28 @@ const ComparationValues: React.FC = () => {
   useEffect(() => {
     if (selectedDates.length > 2) {
       console.error("More than two dates detected in state:", selectedDates);
-
+      setData(data);
+    } else if (selectedDates.length > 0) {
+      const filteredData = data.filter((item) => {
+        const itemDate = dayjs(item.date);
+        return selectedDates.some((date) => date.isSame(itemDate, "day"));
+      });
+      setData(filteredData);
+    } else {
       setData(data);
     }
   }, [selectedDates]);
+
+  const flattenedData = dataValues.flatMap((dailyData) =>
+    dailyData.data.map((dataPoint) => ({
+      timestamp: new Date(dataPoint.timestamp).getTime(),
+      date: new Date(dataPoint.timestamp).toLocaleDateString(),
+      time: new Date(dataPoint.timestamp).toLocaleTimeString(),
+      humidity: dataPoint.humidity,
+      temperature: dataPoint.temperature,
+      co2: dataPoint.co2,
+    }))
+  );
 
   return (
     <>
@@ -107,6 +127,19 @@ const ComparationValues: React.FC = () => {
                   theme="light"
                 />
               )}
+          </div>
+
+          <div className="col-12">
+            <Divider />
+            {selectedDates.length > 0 && checkedList.includes("Temperatura") && (
+              <DataTableTemperature data={flattenedData} theme={false} />
+            )}
+            {selectedDates.length > 0 && checkedList.includes("Humedad") && (
+              <DataTableHumidity data={flattenedData} theme={false} />
+            )}
+            {selectedDates.length > 0 && checkedList.includes("CO2") && (
+              <DataTableCO2 data={flattenedData} theme={false} />
+            )}
           </div>
         </div>
       </div>

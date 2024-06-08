@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import "./DashboardInvernadero3.css";
 import { humedityLastDay } from "./fetchData/fetchData";
-import { Divider } from "antd";
-import LinePlotLastDayHumedity from "./plotsLastDay/linePlotLastDayHumedity";
-import { GeneralData } from "./types/types";
-import LinePlotLastDayTemperature from "./plotsLastDay/linePlotLastDayTemperature";
-import DataTableInvernadero3 from "./DataTableInvernadero3"; // Importa el nuevo componente DataTableInvernadero3
+import { Divider, Button } from "antd";
+import { GeneralData, DashboardProps } from "./types/types";
+import CombinedLinePlot from "./plotsLastDay/CombinedLinePlot";
+import DataTableInvernadero from "./DataTableInvernadero";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
-const DashboardInvernadero3 = () => {
+const DashboardInvernadero1: React.FC<DashboardProps> = ({ theme, thresholds }) => {
   const [humedity, setHumidity] = useState<number | null>(null);
-  const [co2, setCo2] = useState<number | null>(null);
+  const [temperature, setTemperature] = useState<number | null>(null);
   const [time, setTime] = useState<string | null>(null);
   const [dataLastDay, setDataLastDay] = useState<GeneralData[]>([]);
 
@@ -18,16 +20,12 @@ const DashboardInvernadero3 = () => {
       if (data === null) return;
       setDataLastDay(data);
 
-      // Log para verificar los datos
-      console.log("Datos recibidos del backend:", data);
-
-      // Obtener el último dato del array
       const latestData = data[data.length - 1];
       console.log("Últimos datos recibidos:", latestData);
 
       if (latestData) {
         setHumidity(latestData.humidity);
-        setCo2(latestData.co2); // Asegúrate de que el campo sea correcto
+        setTemperature(latestData.temperature);
 
         const lastUpdated = new Date(latestData.timestamp);
         const now = new Date();
@@ -46,61 +44,99 @@ const DashboardInvernadero3 = () => {
     fetchHumedityLastDay();
   }, []);
 
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(dataLastDay);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Datos Invernadero");
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const data = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(data, "datos_invernadero.xlsx");
+  };
+
   return (
-    <>
-      <div className="container-fluid container-body">
-        <div className="row row-body">
-          <div className="col-12">
-            <h3>Invernadero 3</h3>
-          </div>
+    <div className="container-fluid container-body">
+      <div className="row row-body">
+        <div className="col-12">
+          <h3 style={{ color: theme ? "white" : "inherit" }}>Invernadero 1</h3>
         </div>
-        <br />
-        <div className="row">
-          <div className="col-sm-4 col-hum-co2 flex-column">
-            <p className="mushroom-text">
-              Humedad actual:
-              {humedity === null ? (
-                <span className="mushroom-value-notLoaded">{"Cargando..."}</span>
-              ) : (
-                <span className="mushroom-value">{humedity}</span>
-              )}
-            </p>
-          </div>
+      </div>
+      <br />
+      <div className="row">
+        <div className="col-sm-6 col-hum-temp flex-column">
+          <p className="invernadero-text" style={{ color: theme ? "white" : "inherit" }}>
+            Humedad actual:
+            {humedity === null ? (
+              <span className="invernadero-value-notLoaded" style={{ color: theme ? "white" : "inherit" }}>
+                {"Cargando..."}
+              </span>
+            ) : (
+              <span className="invernadero-value" style={{ color: theme ? "white" : "inherit" }}>
+                {humedity} %
+              </span>
+            )}
+          </p>
+        </div>
 
-          <div className="col-sm-4 col-hum-co2 flex-column">
-            <p className="mushroom-text">
-              Temperatura actual:
-              {co2 === null ? (
-                <span className="mushroom-value-notLoaded">{"Cargando..."}</span>
-              ) : (
-                <span className="mushroom-value">{co2} &#176;C</span>
-              )}
-            </p>
-          </div>
+        <div className="col-sm-6 col-hum-temp flex-column">
+          <p className="invernadero-text" style={{ color: theme ? "white" : "inherit" }}>
+            Temperatura actual:
+            {temperature === null ? (
+              <span className="invernadero-value-notLoaded" style={{ color: theme ? "white" : "inherit" }}>
+                {"Cargando..."}
+              </span>
+            ) : (
+              <span className="invernadero-value" style={{ color: theme ? "white" : "inherit" }}>
+                {temperature} &#176;C
+              </span>
+            )}
+          </p>
+        </div>
 
-          <br />
-          <p className="mushroom-value-lastUpdated">
+        <div className="col-12">
+          <p className="invernadero-value-lastUpdated" style={{ color: theme ? "white" : "inherit" }}>
             Datos actualizados hace {time} minuto(s)
           </p>
         </div>
-        <Divider />
-        <div className="row">
-          <div className="col-md-6 col-plot-metrics">
-            <LinePlotLastDayHumedity data={dataLastDay} />
-          </div>
-          <div className="col-md-6 col-plot-metrics">
-            <LinePlotLastDayTemperature data={dataLastDay} />
-          </div>
-        </div>
-        <Divider />
-        <div className="row">
-          <div className="col-12">
-            <DataTableInvernadero3 data={dataLastDay} /> {/* Añade el nuevo componente DataTableInvernadero3 */}
-          </div>
+      </div>
+      <Divider />
+      <div className="row">
+        <div className="col-12 table">
+          <CombinedLinePlot
+            data={dataLastDay}
+            theme={theme}
+            tempThreshold={thresholds.inv1Temp}
+            humidityThreshold={thresholds.inv1Humidity}
+            title="Medidas Combinadas"
+          />
         </div>
       </div>
-    </>
+      <Divider />
+      <div className="row">
+        <div className="col-12">
+          <DataTableInvernadero data={dataLastDay} theme={theme} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 d-flex justify-content-end">
+          <Button
+            type="default"
+            onClick={exportToExcel}
+            style={{
+              margin: "10px",
+              backgroundColor: "#1890ff",
+              color: "white",
+              border: "none",
+            }}
+          >
+            Guardar en Excel
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default DashboardInvernadero3;
+export default DashboardInvernadero1;

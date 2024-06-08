@@ -24,3 +24,44 @@
     margin-top: 10px;
     height: 500px;
 }
+
+
+
+  
+  
+  
+  .col-hum-temp {
+    margin-bottom: 20px;
+  }
+  
+  
+  
+  .invernadero-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #17a2b8; /* Use a color that stands out */
+  }
+  
+  .invernadero-value-notLoaded {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #dc3545; /* Red for loading/error state */
+  }
+  
+  .invernadero-value-lastUpdated {
+    font-size: 1em;
+    color: #6c757d; /* Gray for timestamp */
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+  
+  button {
+    margin-top: 10px;
+    background-color: #1890ff;
+    color: white;
+    border: none;
+  }
+  

@@ -6,7 +6,6 @@ import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import { message } from "antd";
-import MultiDayCO2Chart from "./plots/MultiDayCO2Chart";
 import type { DailyData } from "./fetchData/data.mjs";
 import { data } from "./fetchData/data.mjs";
 import MultiDayHumidityChart from "./plots/MultiDayHumedityChart";
@@ -16,14 +15,14 @@ type CheckboxValueType = GetProp<typeof Checkbox.Group, "value">[number];
 
 const CheckboxGroup = Checkbox.Group;
 
-const plainOptions = ["Temperatura", "Humedad", "CO2"];
+const plainOptions = ["Temperatura", "Humedad"];
 
 const disabledDate = (current: Dayjs): boolean => {
   // Disable today and all days after today
   return !current.isBefore(dayjs().startOf("day"));
 };
 
-const ComparationValues: React.FC = () => {
+const ComparationValuesInv1: React.FC = () => {
   const [dataValues, setData] = useState<DailyData[]>(data);
   const [selectedDates, setSelectedDates] = useState<Dayjs[]>([]);
   const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
@@ -89,9 +88,7 @@ const ComparationValues: React.FC = () => {
           </div>
 
           <div className="col-12" style={{ height: "500px" }}>
-            {selectedDates.length > 0 && checkedList.includes("CO2") && (
-              <MultiDayCO2Chart data={dataValues} title="CO2" theme="light" />
-            )}
+            
             {selectedDates.length > 0 && checkedList.includes("Humedad") && (
               <MultiDayHumidityChart
                 data={dataValues}
@@ -114,4 +111,4 @@ const ComparationValues: React.FC = () => {
   );
 };
 
-export default ComparationValues;
+export default ComparationValuesInv1;

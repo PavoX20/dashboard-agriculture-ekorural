@@ -1,12 +1,13 @@
 import { useState, useContext, useEffect } from "react";
 import { Layout, notification } from "antd";
+import { WarningOutlined } from '@ant-design/icons';
 import "./Sidebar.css";
 import MenuList from "./MenuList";
 import ToggleThemeButton from "./ToggleThemeButton";
-import { ThresholdContext } from "../settings/context/ThresholdContext";
+import { ThresholdContext } from "../context/ThresholdContext";
 import UrkuwaykuLogo from "../icons/UrkuwaykuLogo";
 import { SidebarProps } from "../types/sharedTypes";
-import { valuesMushroomLastDay, valuesGreenhouse1LastDay, valuesGreenhouse3LastDay } from "./fetchData/fetchData"; // Importar funciones de fetch
+import { valuesMushroomLastDay, valuesGreenhouse1LastDay, valuesGreenhouse3LastDay } from "./fetchData/fetchData";
 
 const { Header, Sider, Content } = Layout;
 
@@ -21,11 +22,14 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
 
   const [api, contextHolder] = notification.useNotification();
 
-  const openNotification = (message: string, description: string) => {
+  const openNotification = (message: string, description: string, time: string) => {
+    // Destruye todas las notificaciones antes de abrir una nueva
+    notification.destroy();
     api.info({
       message,
-      description,
+      description: `${description} - Hora: ${time}`,
       placement: "topRight",
+      icon: <WarningOutlined style={{ color: 'red' }} />,
     });
   };
 
@@ -39,31 +43,33 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
       const latestDataInvernadero1 = dataInvernadero1[dataInvernadero1.length - 1];
       const latestDataInvernadero3 = dataInvernadero3[dataInvernadero3.length - 1];
 
+      const currentTime = new Date().toLocaleTimeString();
+
       // Check thresholds and send notifications for Mushroom
       if (latestDataMushroom.humidity < thresholds.hongoHumidity) {
-        openNotification("Alerta de Humedad - Hongos", "La humedad ha caído por debajo del umbral.");
+        openNotification("Alerta de Humedad - Hongos", "La humedad ha caído por debajo del umbral.", currentTime);
       }
       if (latestDataMushroom.temperature < thresholds.hongoTemp) {
-        openNotification("Alerta de Temperatura - Hongos", "La temperatura ha caído por debajo del umbral.");
+        openNotification("Alerta de Temperatura - Hongos", "La temperatura ha caído por debajo del umbral.", currentTime);
       }
       if (latestDataMushroom.co2 !== undefined && latestDataMushroom.co2 < thresholds.hongoCO2) {
-        openNotification("Alerta de CO2 - Hongos", "El CO2 ha caído por debajo del umbral.");
+        openNotification("Alerta de CO2 - Hongos", "El CO2 ha caído por debajo del umbral.", currentTime);
       }
 
       // Check thresholds and send notifications for Invernadero 1
       if (latestDataInvernadero1.humidity < thresholds.inv1Humidity) {
-        openNotification("Alerta de Humedad - Invernadero 1", "La humedad ha caído por debajo del umbral.");
+        openNotification("Alerta de Humedad - Invernadero 1", "La humedad ha caído por debajo del umbral.", currentTime);
       }
       if (latestDataInvernadero1.temperature < thresholds.inv1Temp) {
-        openNotification("Alerta de Temperatura - Invernadero 1", "La temperatura ha caído por debajo del umbral.");
+        openNotification("Alerta de Temperatura - Invernadero 1", "La temperatura ha caído por debajo del umbral.", currentTime);
       }
 
       // Check thresholds and send notifications for Invernadero 3
       if (latestDataInvernadero3.humidity < thresholds.inv3Humidity) {
-        openNotification("Alerta de Humedad - Invernadero 3", "La humedad ha caído por debajo del umbral.");
+        openNotification("Alerta de Humedad - Invernadero 3", "La humedad ha caído por debajo del umbral.", currentTime);
       }
       if (latestDataInvernadero3.temperature < thresholds.inv3Temp) {
-        openNotification("Alerta de Temperatura - Invernadero 3", "La temperatura ha caído por debajo del umbral.");
+        openNotification("Alerta de Temperatura - Invernadero 3", "La temperatura ha caído por debajo del umbral.", currentTime);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -72,7 +78,7 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
 
   useEffect(() => {
     checkThresholds();
-    const interval = setInterval(checkThresholds, 5000);
+    const interval = setInterval(checkThresholds, 60000);
     return () => clearInterval(interval);
   }, [thresholds]);
 

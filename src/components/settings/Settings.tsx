@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Input, Form, Button } from "antd";
 import "./Settings.css";
 import { ThresholdContext } from "../context/ThresholdContext";
-import { DashboardProps } from "../types/SharedTypes";
+import { DashboardProps } from "../types/sharedTypes";
 
 const Settings: React.FC<DashboardProps> = ({ theme }) => {
   const { thresholds, setThresholds } = useContext(ThresholdContext);
@@ -96,6 +96,7 @@ const Settings: React.FC<DashboardProps> = ({ theme }) => {
                 name="inv2Temp"
                 value={localThresholds.inv2Temp}
                 onChange={handleChange}
+                disabled
               />
             </Form.Item>
             <Form.Item label="Umbral Humedad">
@@ -105,6 +106,7 @@ const Settings: React.FC<DashboardProps> = ({ theme }) => {
                 name="inv2Humidity"
                 value={localThresholds.inv2Humidity}
                 onChange={handleChange}
+                disabled
               />
             </Form.Item>
           </div>

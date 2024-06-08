@@ -115,7 +115,7 @@ const DashboardGeneral: React.FC<DashboardProps> = ({ theme }) => {
       {/* Hongos Ostra */}
       <div className="row row-body">
         <div className="col-12">
-          <h3 style={{ color: theme ? "white" : "inherit" }}>Hongos Ostra</h3>
+          <h3 style={{ color: theme ? "white" : "inherit" }}>Hongos</h3>
         </div>
       </div>
       <br />
@@ -232,6 +232,10 @@ const DashboardGeneral: React.FC<DashboardProps> = ({ theme }) => {
           </p>
         </div>
       </div>
+      <Divider />
+            <h4>
+              Próximamente...
+            </h4>
       <Divider />
 
       {/* Invernadero 3 */}

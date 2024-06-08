@@ -66,7 +66,7 @@ const DashboardHongos: React.FC<DashboardProps> = ({ theme, thresholds }) => {
     <div className="container-fluid container-body">
       <div className="row row-body">
         <div className="col-12">
-          <h3 style={{ color: theme ? "white" : "inherit" }}>Hongos Ostra</h3>
+          <h3 style={{ color: theme ? "white" : "inherit" }}>Hongos</h3>
         </div>
       </div>
       <br />
@@ -137,7 +137,7 @@ const DashboardHongos: React.FC<DashboardProps> = ({ theme, thresholds }) => {
                 className="mushroom-value"
                 style={{ color: theme ? "white" : "inherit" }}
               >
-                {temperature} C
+                {temperature} &#176;C
               </span>
             )}
           </p>

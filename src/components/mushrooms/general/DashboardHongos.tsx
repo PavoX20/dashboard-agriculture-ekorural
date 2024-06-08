@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./DashboardHongos.css";
 import { humedityLastDay } from "./fetchData/fetchData";
 import { Divider, Button } from "antd";
-import { GeneralData, DashboardProps } from "./types/types";
+import { GeneralData, DashboardProps } from "../../types/SharedTypes";
 import DataTable from "./TableMushrooms";
 import CombinedLinePlot from "./plotsLastDay/CombinedLinePlot";
 import * as XLSX from "xlsx";

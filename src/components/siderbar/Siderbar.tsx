@@ -3,8 +3,9 @@ import { Layout } from "antd";
 import "./Sidebar.css";
 import MenuList from "./MenuList";
 import ToggleThemeButton from "./ToggleThemeButton";
-import { ThresholdContext } from "../../context/ThresholdContext";
+import { ThresholdContext } from "./context/ThresholdContext";
 import UrkuwaykuLogo from "../icons/UrkuwaykuLogo";
+import { SidebarProps } from "../types/SharedTypes";
 
 const { Header, Sider, Content } = Layout;
 

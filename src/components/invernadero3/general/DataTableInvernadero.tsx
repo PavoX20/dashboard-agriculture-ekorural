@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-import { DataTableProps } from './types/types';
+import { DataTableProps } from '../../types/sharedTypes';
 import './TableInvernadero.css';
 
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./DashboardInvernadero3.css";
 import { humedityLastDay } from "./fetchData/fetchData";
 import { Divider, Button } from "antd";
-import { GeneralData, DashboardProps } from "./types/types";
+import { GeneralData, DashboardProps } from '../../types/sharedTypes';
 import CombinedLinePlot from "./plotsLastDay/CombinedLinePlot";
 import DataTableInvernadero from "./DataTableInvernadero";
 import * as XLSX from "xlsx";

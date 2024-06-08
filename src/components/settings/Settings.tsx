@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Input, Form, Button } from "antd";
 import "./Settings.css";
-import { ThresholdContext } from "../../context/ThresholdContext";
-import { DashboardProps } from "./../mushrooms/general/types/types";
+import { ThresholdContext } from "../siderbar/context/ThresholdContext";
+import { DashboardProps } from "../types/SharedTypes";
 
 const Settings: React.FC<DashboardProps> = ({ theme }) => {
   const { thresholds, setThresholds } = useContext(ThresholdContext);
@@ -133,7 +133,11 @@ const Settings: React.FC<DashboardProps> = ({ theme }) => {
         </div>
         <div className="row">
           <div className="col-12 d-flex justify-content-end">
-            <Button type="primary" className="save-button" onClick={handleSubmit}>
+            <Button
+              type="primary"
+              className="save-button"
+              onClick={handleSubmit}
+            >
               {buttonText}
             </Button>
           </div>

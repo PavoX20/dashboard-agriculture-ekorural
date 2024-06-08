@@ -2,12 +2,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Sidebar } from "../components/siderbar/Siderbar";
 import DashboardHongos from "../components/mushrooms/general/DashboardHongos";
-import General from "../components/general/general";
+import General from "../components/general/General";
 import ComparationValues from "../components/mushrooms/comparation/ComparationValues";
 import DashboardInvernadero1 from "../components/invernadero1/general/DashboardInvernadero1";
 import DashboardInvernadero2 from "../components/invernadero2/general/DashboardInvernadero2";
 import Settings from "../components/settings/Settings";
-import { ThresholdProvider } from "../components/siderbar/context/ThresholdContext";
+import { ThresholdProvider } from "../components/context/ThresholdContext";
 import ComparationValuesInv2 from "../components/invernadero2/comparation/ComparationValuesInv2";
 import DashboardInvernadero3 from "../components/invernadero3/general/DashboardInvernadero3";
 import ComparationValuesInv3 from "../components/invernadero3/comparation/ComparationValuesInv3";

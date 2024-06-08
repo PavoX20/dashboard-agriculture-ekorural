@@ -60,7 +60,7 @@ const DashboardInvernadero1: React.FC<DashboardProps> = ({ theme, thresholds }) 
     <div className="container-fluid container-body">
       <div className="row row-body">
         <div className="col-12">
-          <h3 style={{ color: theme ? "white" : "inherit" }}>Invernadero 1</h3>
+          <h3 style={{ color: theme ? "white" : "inherit" }}>Invernadero 3</h3>
         </div>
       </div>
       <br />

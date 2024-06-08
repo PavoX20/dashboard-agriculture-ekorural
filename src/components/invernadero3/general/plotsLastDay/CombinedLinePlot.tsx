@@ -3,7 +3,7 @@ import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import { ChartOptions, ChartData } from "chart.js";
 import "chartjs-adapter-date-fns";
-import { CombinedChartProps, GeneralData } from '../../../types/SharedTypes';
+import { CombinedChartProps, GeneralData } from '../../../types/sharedTypes';
 
 const CombinedLinePlot: React.FC<CombinedChartProps> = ({ data, theme, tempThreshold, humidityThreshold, title }) => {
   const tempPointColor = data.map(item => (item.temperature ?? 0) < tempThreshold ? 'rgb(255, 0, 0)' : 'rgb(255, 205, 86)'); // Amarillo para temperatura

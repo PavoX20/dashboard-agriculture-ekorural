@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Input, Form, Button } from "antd";
 import "./Settings.css";
-import { ThresholdContext } from "../siderbar/context/ThresholdContext";
+import { ThresholdContext } from "../context/ThresholdContext";
 import { DashboardProps } from "../types/SharedTypes";
 
 const Settings: React.FC<DashboardProps> = ({ theme }) => {

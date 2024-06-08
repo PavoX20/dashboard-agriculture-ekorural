@@ -1,11 +1,12 @@
-import { useState, useContext } from "react";
-import { Layout } from "antd";
+import { useState, useContext, useEffect } from "react";
+import { Layout, notification } from "antd";
 import "./Sidebar.css";
 import MenuList from "./MenuList";
 import ToggleThemeButton from "./ToggleThemeButton";
-import { ThresholdContext } from "./context/ThresholdContext";
+import { ThresholdContext } from "../settings/context/ThresholdContext";
 import UrkuwaykuLogo from "../icons/UrkuwaykuLogo";
-import { SidebarProps } from "../types/SharedTypes";
+import { SidebarProps } from "../types/sharedTypes";
+import { valuesMushroomLastDay, valuesGreenhouse1LastDay, valuesGreenhouse3LastDay } from "./fetchData/fetchData"; // Importar funciones de fetch
 
 const { Header, Sider, Content } = Layout;
 
@@ -18,8 +19,66 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
     setDarkTheme(!darkTheme);
   };
 
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (message: string, description: string) => {
+    api.info({
+      message,
+      description,
+      placement: "topRight",
+    });
+  };
+
+  const checkThresholds = async () => {
+    try {
+      const dataMushroom = await valuesMushroomLastDay();
+      const dataInvernadero1 = await valuesGreenhouse1LastDay();
+      const dataInvernadero3 = await valuesGreenhouse3LastDay();
+
+      const latestDataMushroom = dataMushroom[dataMushroom.length - 1];
+      const latestDataInvernadero1 = dataInvernadero1[dataInvernadero1.length - 1];
+      const latestDataInvernadero3 = dataInvernadero3[dataInvernadero3.length - 1];
+
+      // Check thresholds and send notifications for Mushroom
+      if (latestDataMushroom.humidity < thresholds.hongoHumidity) {
+        openNotification("Alerta de Humedad - Hongos", "La humedad ha caído por debajo del umbral.");
+      }
+      if (latestDataMushroom.temperature < thresholds.hongoTemp) {
+        openNotification("Alerta de Temperatura - Hongos", "La temperatura ha caído por debajo del umbral.");
+      }
+      if (latestDataMushroom.co2 !== undefined && latestDataMushroom.co2 < thresholds.hongoCO2) {
+        openNotification("Alerta de CO2 - Hongos", "El CO2 ha caído por debajo del umbral.");
+      }
+
+      // Check thresholds and send notifications for Invernadero 1
+      if (latestDataInvernadero1.humidity < thresholds.inv1Humidity) {
+        openNotification("Alerta de Humedad - Invernadero 1", "La humedad ha caído por debajo del umbral.");
+      }
+      if (latestDataInvernadero1.temperature < thresholds.inv1Temp) {
+        openNotification("Alerta de Temperatura - Invernadero 1", "La temperatura ha caído por debajo del umbral.");
+      }
+
+      // Check thresholds and send notifications for Invernadero 3
+      if (latestDataInvernadero3.humidity < thresholds.inv3Humidity) {
+        openNotification("Alerta de Humedad - Invernadero 3", "La humedad ha caído por debajo del umbral.");
+      }
+      if (latestDataInvernadero3.temperature < thresholds.inv3Temp) {
+        openNotification("Alerta de Temperatura - Invernadero 3", "La temperatura ha caído por debajo del umbral.");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkThresholds();
+    const interval = setInterval(checkThresholds, 5000);
+    return () => clearInterval(interval);
+  }, [thresholds]);
+
   return (
     <Layout hasSider style={{ minHeight: "100vh" }}>
+      {contextHolder}
       <Sider
         width={220}
         collapsible

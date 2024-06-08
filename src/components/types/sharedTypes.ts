@@ -61,10 +61,6 @@ export interface GeneralData {
     setThresholds: (thresholds: Thresholds) => void;
   }
 
-export interface ThresholdContextType {
-  thresholds: Thresholds;
-  setThresholds: (thresholds: Thresholds) => void;
-}
 
 // src/types/types.ts
 
@@ -142,8 +138,3 @@ export interface Thresholds {
 }
 
 
-
-export interface ThresholdContextType {
-  thresholds: Thresholds;
-  setThresholds: (thresholds: Thresholds) => void;
-}

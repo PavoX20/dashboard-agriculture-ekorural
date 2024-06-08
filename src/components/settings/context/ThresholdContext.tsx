@@ -1,10 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { Thresholds } from "../../types/sharedTypes";
-
-type ThresholdContextType = {
-  thresholds: Thresholds;
-  setThresholds: (thresholds: Thresholds) => void;
-};
+import { Thresholds, ThresholdContextType } from "../../types/sharedTypes";
 
 export const ThresholdContext = createContext<ThresholdContextType>({
   thresholds: {

@@ -38,7 +38,7 @@ const MultiDayTemperatureChart: React.FC<MultiDayTemperatureChartProps> = ({ dat
   const datasets = data.map((dayData, index) => ({
     label: dayData.date,
     data: dayData.data.map(item => ({
-      x: new Date(item.timestamp).getHours() + new Date(item.timestamp).getMinutes() / 60, // Use hour and minute only
+      x: new Date(item.timestamp).getHours() + new Date(item.timestamp).getMinutes() / 60,
       y: item.temperature,
     })),
     fill: false,
@@ -58,16 +58,18 @@ const MultiDayTemperatureChart: React.FC<MultiDayTemperatureChartProps> = ({ dat
         title: {
           display: true,
           text: 'Hora del día',
+          color: theme === 'dark' ? '#fff' : '#333',
         },
         ticks: {
+          color: theme === 'dark' ? '#fff' : '#333',
           callback: function(value) {
             const hours = Math.floor(value as number);
             const minutes = Math.floor(((value as number) - hours) * 60);
             return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
-          }
+          },
         },
         grid: {
-          color: theme === 'dark' ? '#777' : '#ccc',
+          color: theme === 'dark' ? '#555' : '#ccc',
         },
       },
       y: {
@@ -75,9 +77,13 @@ const MultiDayTemperatureChart: React.FC<MultiDayTemperatureChartProps> = ({ dat
         title: {
           display: true,
           text: 'Temperatura (°C)',
+          color: theme === 'dark' ? '#fff' : '#333',
+        },
+        ticks: {
+          color: theme === 'dark' ? '#fff' : '#333',
         },
         grid: {
-          color: theme === 'dark' ? '#777' : '#ccc',
+          color: theme === 'dark' ? '#555' : '#ccc',
         },
       },
     },
@@ -85,6 +91,9 @@ const MultiDayTemperatureChart: React.FC<MultiDayTemperatureChartProps> = ({ dat
       legend: {
         display: true,
         position: 'top',
+        labels: {
+          color: theme === 'dark' ? '#fff' : '#333',
+        },
       },
       title: {
         display: true,
@@ -107,9 +116,9 @@ const MultiDayTemperatureChart: React.FC<MultiDayTemperatureChartProps> = ({ dat
             const minutes = Math.floor((value.x - hours) * 60);
             const timeString = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
             return `Hora: ${timeString}`;
-          }
-        }
-      }
+          },
+        },
+      },
     },
     responsive: true,
     maintainAspectRatio: false,
@@ -123,13 +132,7 @@ const MultiDayTemperatureChart: React.FC<MultiDayTemperatureChartProps> = ({ dat
     },
   };
 
-  const chartStyles = {
-    height: '100%',  // Set the height to 100% to fill the parent container
-    backgroundColor: theme === 'dark' ? '#333' : '#fff',
-    color: theme === 'dark' ? '#fff' : '#000',
-  };
-
-  return <Line style={chartStyles} data={chartData} options={options} />;
+  return <Line data={chartData} options={options} />;
 };
 
 export default MultiDayTemperatureChart;

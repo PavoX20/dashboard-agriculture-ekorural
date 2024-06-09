@@ -12,6 +12,7 @@
   flex: 1;
   padding: 10px;
   border-right: 2px solid #ccc;
+  border-radius: 10px; /* Rounded corners */
 }
 
 .settings-col:last-child {
@@ -23,14 +24,105 @@
   width: 100%;
 }
 
+.input-text[disabled] {
+  background-color: #f5f5f5; /* Light gray background for disabled inputs */
+  color: #aaa; /* Light gray text color for disabled inputs */
+  border: 1px solid #ccc; /* Light gray border for disabled inputs */
+}
+
 .save-button {
   display: block;
   margin: 0 auto;
-  background-color: #1890ff;
+  background-color: #1890ff; /* Blue color for the save button */
   color: white;
   border: none;
 }
 
 .save-button:hover {
-  background-color: #40a9ff;
+  background-color: #40a9ff; /* Lighter blue on hover */
+}
+
+/* Dark theme styles */
+.dark-theme {
+  background-color: rgb(4, 21, 36); /* Similar to the requested color */
+  color: #dcdcdc;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.dark-theme h4 {
+  color: #dcdcdc;
+  border-bottom: 2px solid #dcdcdc;
+}
+
+.dark-theme .settings-col {
+  border-right: 2px solid #555;
+  border-radius: 10px;
+}
+
+.dark-theme .input-text {
+  background-color: #444;
+  color: #dcdcdc;
+  border: 1px solid #555;
+}
+
+.dark-theme .input-text[disabled] {
+  background-color: #555; /* Darker gray background for disabled inputs */
+  color: #888; /* Light gray text color for disabled inputs */
+  border: 1px solid #666; /* Dark gray border for disabled inputs */
+}
+
+.dark-theme .save-button {
+  background-color: #1890ff; /* Blue color for the save button */
+  color: white;
+}
+
+.dark-theme .save-button:hover {
+  background-color: #40a9ff; /* Lighter blue on hover */
+}
+
+.dark-theme .ant-form-item-label > label {
+  color: #dcdcdc;
+}
+
+/* Light theme styles */
+.light-theme {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.light-theme h4 {
+  color: #000000;
+  border-bottom: 2px solid #000000;
+}
+
+.light-theme .settings-col {
+  border-right: 2px solid #ccc;
+}
+
+.light-theme .input-text {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ccc;
+}
+
+.light-theme .input-text[disabled] {
+  background-color: #f5f5f5; /* Light gray background for disabled inputs */
+  color: #aaa; /* Light gray text color for disabled inputs */
+  border: 1px solid #ccc; /* Light gray border for disabled inputs */
+}
+
+.light-theme .save-button {
+  background-color: #1890ff; /* Blue color for the save button */
+  color: white;
+}
+
+.light-theme .save-button:hover {
+  background-color: #40a9ff; /* Lighter blue on hover */
+}
+
+.light-theme .ant-form-item-label > label {
+  color: #000000;
 }

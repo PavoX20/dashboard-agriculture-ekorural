@@ -1,5 +1,8 @@
 // src/types/types.ts
 
+import { Checkbox } from "antd";
+import type { GetProp } from "antd";
+
 export interface GeneralData {
     timestamp: string;
     humidity: number;
@@ -137,4 +140,21 @@ export interface Thresholds {
   inv2Humidity: number;
 }
 
+export interface DailyData {
+  date: string;
+  humidity: number;
+  temperature: number;
+  co2: number;
+  ventilatorStatus: boolean;
+}
 
+export interface GeneralData {
+  timestamp: string;
+  date: string;
+  time: string;
+  humidity: number;
+  temperature?: number;
+  co2?: number;
+}
+
+export type CheckboxValueType = GetProp<typeof Checkbox.Group, "value">[number];

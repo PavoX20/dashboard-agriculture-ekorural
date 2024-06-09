@@ -233,8 +233,8 @@ const DashboardGeneral: React.FC<DashboardProps> = ({ theme }) => {
         </div>
       </div>
       <Divider />
-            <h4>
-              Próximamente...
+            <h4 style={{ color: theme ? "white" : "inherit" }}>
+              Invernadero 2 - Próximamente...
             </h4>
       <Divider />
 

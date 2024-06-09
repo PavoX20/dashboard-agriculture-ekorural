@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Divider } from "antd";
-import type { GetProp } from "antd";
+import { Checkbox, Divider, DatePicker, message } from "antd";
 import type { DatePickerProps } from "antd";
-import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
-import { message } from "antd";
 import MultiDayCO2Chart from "./plots/MultiDayCO2Chart";
 import type { DailyData } from "./fetchData/data.mjs";
 import { data } from "./fetchData/data.mjs";
@@ -14,9 +11,8 @@ import MultiDayTemperatureChart from "./plots/MultiDayTemperatureChart";
 import DataTableTemperature from "./tables/DataTableTemperature";
 import DataTableHumidity from "./tables/DataTableHumidity";
 import DataTableCO2 from "./tables/DataTableCO2";
-import type { GeneralData } from "./types/types";
-
-type CheckboxValueType = GetProp<typeof Checkbox.Group, "value">[number];
+import { CheckboxValueType } from "../../types/sharedTypes";
+import "./ComparationValues.css"
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -27,20 +23,18 @@ const disabledDate = (current: Dayjs): boolean => {
   return !current.isBefore(dayjs().startOf("day"));
 };
 
-const ComparationValues: React.FC = () => {
+const ComparationValues: React.FC<{ theme: boolean }> = ({ theme }) => {
   const [dataValues, setData] = useState<DailyData[]>(data);
   const [selectedDates, setSelectedDates] = useState<Dayjs[]>([]);
   const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
 
   const onChange = (list: CheckboxValueType[]) => {
-    console.log("Newly received list:", list); // Debug: See incoming list
     if (list.length > 1) {
       const latestSelection = list.find((item) => !checkedList.includes(item));
       if (latestSelection != null) setCheckedList([latestSelection]);
     } else {
       setCheckedList(list);
     }
-    console.log("Updated List (only one selected):", list);
   };
 
   const onChangeDate: DatePickerProps<Dayjs[]>["onChange"] = (dates) => {
@@ -55,7 +49,6 @@ const ComparationValues: React.FC = () => {
 
   useEffect(() => {
     if (selectedDates.length > 2) {
-      console.error("More than two dates detected in state:", selectedDates);
       setData(data);
     } else if (selectedDates.length > 0) {
       const filteredData = data.filter((item) => {
@@ -81,16 +74,17 @@ const ComparationValues: React.FC = () => {
 
   return (
     <>
-      <div className="container-fluid container-body">
+      <div className={`container-fluid container-body ${theme ? "dark-theme" : "light-theme"}`}>
         <div className="row row-body">
           <div className="col-12">
-            <h3>Comparación de datos</h3>
+            <h3 style={{ color: theme ? "white" : "inherit" }}>Comparación de datos</h3>
           </div>
           <div className="col-12">
             <CheckboxGroup
               options={plainOptions}
               value={checkedList}
               onChange={onChange}
+              className="checkbox-group"
             />
           </div>
 
@@ -104,19 +98,20 @@ const ComparationValues: React.FC = () => {
                 disabledDate={disabledDate}
                 picker="date"
                 value={selectedDates}
+                className={theme ? "ant-picker-dark" : "ant-picker-light"}
               />
             )}
           </div>
 
           <div className="col-12" style={{ height: "500px" }}>
             {selectedDates.length > 0 && checkedList.includes("CO2") && (
-              <MultiDayCO2Chart data={dataValues} title="CO2" theme="light" />
+              <MultiDayCO2Chart data={dataValues} title="CO2" theme={theme ? "dark" : "light"} />
             )}
             {selectedDates.length > 0 && checkedList.includes("Humedad") && (
               <MultiDayHumidityChart
                 data={dataValues}
                 title="Humedad"
-                theme="light"
+                theme={theme ? "dark" : "light"}
               />
             )}
             {selectedDates.length > 0 &&
@@ -124,7 +119,7 @@ const ComparationValues: React.FC = () => {
                 <MultiDayTemperatureChart
                   data={dataValues}
                   title="Temperatura"
-                  theme="light"
+                  theme={theme ? "dark" : "light"}
                 />
               )}
           </div>
@@ -132,13 +127,13 @@ const ComparationValues: React.FC = () => {
           <div className="col-12">
             <Divider />
             {selectedDates.length > 0 && checkedList.includes("Temperatura") && (
-              <DataTableTemperature data={flattenedData} theme={false} />
+              <DataTableTemperature data={flattenedData} theme={theme} />
             )}
             {selectedDates.length > 0 && checkedList.includes("Humedad") && (
-              <DataTableHumidity data={flattenedData} theme={false} />
+              <DataTableHumidity data={flattenedData} theme={theme} />
             )}
             {selectedDates.length > 0 && checkedList.includes("CO2") && (
-              <DataTableCO2 data={flattenedData} theme={false} />
+              <DataTableCO2 data={flattenedData} theme={theme} />
             )}
           </div>
         </div>

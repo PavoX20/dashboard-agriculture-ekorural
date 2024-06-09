@@ -3,7 +3,6 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
 import { ChartOptions, ChartData, TooltipItem } from 'chart.js';
-import { MdHeight } from 'react-icons/md';
 
 interface DataPoint {
   timestamp: string;
@@ -59,16 +58,18 @@ const MultiDayCO2Chart: React.FC<MultiDayCO2ChartProps> = ({ data, title, theme 
         title: {
           display: true,
           text: 'Hora del día',
+          color: theme === 'dark' ? '#fff' : '#333',
         },
         ticks: {
+          color: theme === 'dark' ? '#fff' : '#333',
           callback: function(value) {
             const hours = Math.floor(value as number);
             const minutes = Math.floor(((value as number) - hours) * 60);
             return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
-          }
+          },
         },
         grid: {
-          color: theme === 'dark' ? '#777' : '#ccc',
+          color: theme === 'dark' ? '#555' : '#ccc',
         },
       },
       y: {
@@ -76,9 +77,13 @@ const MultiDayCO2Chart: React.FC<MultiDayCO2ChartProps> = ({ data, title, theme 
         title: {
           display: true,
           text: 'CO2 (ppm)',
+          color: theme === 'dark' ? '#fff' : '#333',
+        },
+        ticks: {
+          color: theme === 'dark' ? '#fff' : '#333',
         },
         grid: {
-          color: theme === 'dark' ? '#777' : '#ccc',
+          color: theme === 'dark' ? '#555' : '#ccc',
         },
       },
     },
@@ -86,6 +91,9 @@ const MultiDayCO2Chart: React.FC<MultiDayCO2ChartProps> = ({ data, title, theme 
       legend: {
         display: true,
         position: 'top',
+        labels: {
+          color: theme === 'dark' ? '#fff' : '#333',
+        },
       },
       title: {
         display: true,
@@ -108,9 +116,9 @@ const MultiDayCO2Chart: React.FC<MultiDayCO2ChartProps> = ({ data, title, theme 
             const minutes = Math.floor((value.x - hours) * 60);
             const timeString = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
             return `Hora: ${timeString}`;
-          }
-        }
-      }
+          },
+        },
+      },
     },
     responsive: true,
     maintainAspectRatio: false,
@@ -124,12 +132,7 @@ const MultiDayCO2Chart: React.FC<MultiDayCO2ChartProps> = ({ data, title, theme 
     },
   };
 
-  const chartStyles = {
-    backgroundColor: theme === 'dark' ? '#333' : '#fff',
-    color: theme === 'dark' ? '#fff' : '#000',
-  };
-
-  return <Line style={chartStyles} data={chartData} options={options} />;
+  return <Line data={chartData} options={options} />;
 };
 
 export default MultiDayCO2Chart;

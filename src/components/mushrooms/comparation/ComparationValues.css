@@ -1,0 +1,49 @@
+/* ComparationValues.css */
+.dark-theme {
+    background: rgb(2, 21, 39);
+    color: white;
+  }
+  
+  .light-theme {
+    background: #fff;
+    color: black;
+  }
+  
+  .dark-theme .ant-checkbox-wrapper {
+    color: white;
+  }
+  
+  .light-theme .ant-checkbox-wrapper {
+    color: black;
+  }
+  
+  .dark-theme .ant-picker {
+    background: rgb(2, 21, 39);
+    color: white;
+    border: 1px solid white;
+  }
+  
+  .light-theme .ant-picker {
+    background: #fff;
+    color: black;
+    border: 1px solid black;
+  }
+  
+  .dark-theme .ant-picker-cell-inner,
+  .dark-theme .ant-picker-cell-today {
+    color: white;
+  }
+  
+  .light-theme .ant-picker-cell-inner,
+  .light-theme .ant-picker-cell-today {
+    color: black;
+  }
+  
+  .dark-theme .ant-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .light-theme .ant-divider {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  

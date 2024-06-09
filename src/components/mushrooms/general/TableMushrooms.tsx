@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "antd";
-import { GeneralData } from "../../types/SharedTypes";
+import { GeneralData } from "../../types/sharedTypes";
 import "./TableMushrooms.css";
 
 type DataTableProps = {

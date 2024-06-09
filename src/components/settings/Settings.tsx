@@ -31,11 +31,11 @@ const Settings: React.FC<DashboardProps> = ({ theme }) => {
   };
 
   return (
-    <div className="settings-container">
+    <div className={`settings-container ${theme ? "dark-theme" : "light-theme"}`}>
       <Form layout="vertical">
         <div className="settings-row">
           <div className="settings-col">
-            <h4>Configuración Invernadero Hongos Ostra</h4>
+            <h4>Configuración Invernadero Hongos</h4>
             <Form.Item label="Umbral Temperatura">
               <Input
                 className="input-text"

@@ -6,7 +6,7 @@ import "chartjs-adapter-date-fns";
 import {
   CombinedChartPropsWithCO2,
   GeneralData,
-} from "../../../types/SharedTypes";
+} from "../../../types/sharedTypes";
 
 const CombinedLinePlot: React.FC<CombinedChartPropsWithCO2> = ({
   data,

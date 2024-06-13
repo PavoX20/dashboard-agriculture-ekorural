@@ -1,6 +1,6 @@
 // App.tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Sidebar } from "../components/siderbar/Siderbar";
+import  Sidebar from "../components/siderbar/Siderbar";
 import DashboardHongos from "../components/mushrooms/general/DashboardHongos";
 import DashboardGeneral from "../components/general/general";
 import ComparationValues from "../components/mushrooms/comparation/ComparationValues";

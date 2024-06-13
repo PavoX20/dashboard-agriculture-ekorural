@@ -1,17 +1,22 @@
 import { useState, useContext, useEffect } from "react";
-import { Layout, notification } from "antd";
-import { WarningOutlined } from '@ant-design/icons';
+import { Layout, Button } from "antd";
+import toast, { Toaster } from "react-hot-toast";
+import { WarningOutlined, CloseOutlined } from "@ant-design/icons";
 import "./Sidebar.css";
 import MenuList from "./MenuList";
 import ToggleThemeButton from "./ToggleThemeButton";
 import { ThresholdContext } from "../context/ThresholdContext";
 import UrkuwaykuLogo from "../icons/UrkuwaykuLogo";
 import { SidebarProps } from "../types/sharedTypes";
-import { valuesMushroomLastDay, valuesGreenhouse1LastDay, valuesGreenhouse3LastDay } from "./fetchData/fetchData";
+import {
+  valuesMushroomLastDay,
+  valuesGreenhouse1LastDay,
+  valuesGreenhouse3LastDay,
+} from "./fetchData/fetchData";
 
 const { Header, Sider, Content } = Layout;
 
-export const Sidebar = ({ Dashboard }: SidebarProps) => {
+const SidebarComponent = ({ Dashboard }: SidebarProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const [darkTheme, setDarkTheme] = useState(false);
   const { thresholds } = useContext(ThresholdContext);
@@ -20,17 +25,65 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
     setDarkTheme(!darkTheme);
   };
 
-  const [api, contextHolder] = notification.useNotification();
-
-  const openNotification = (message: string, description: string, time: string) => {
-    // Destruye todas las notificaciones antes de abrir una nueva
-    notification.destroy();
-    api.info({
-      message,
-      description: `${description} - Hora: ${time}`,
-      placement: "topRight",
-      icon: <WarningOutlined style={{ color: 'red' }} />,
-    });
+  const openNotification = (
+    message: string,
+    description: string,
+    time: string,
+    darkTheme: boolean
+  ) => {
+    const toastId = toast(
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <WarningOutlined style={{ color: "red", marginRight: 20, fontSize: '24px' }} />
+          <div>{`${message} - ${description} - Hora: ${time}`}</div>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", position: 'absolute', top: '8px', right: '8px' }}>
+          <Button
+            size="small"
+            onClick={() => toast.dismiss(toastId)}
+            style={{
+              backgroundColor: "transparent",
+              border: "none",
+              color: "inherit",
+            }}
+          >
+            <CloseOutlined />
+          </Button>
+        </div>
+        <Button
+          size="small"
+          onClick={() => toast.dismiss()}
+          style={{
+            marginLeft: "10px",
+            backgroundColor: "transparent",
+            border: "none",
+            color: "inherit",
+            alignSelf: "flex-end",
+            marginTop: 10,
+          }}
+        >
+          Clear All
+        </Button>
+      </div>,
+      {
+        position: "top-right",
+        duration: Infinity,
+        style: {
+          background: darkTheme ? "#333" : "#fff",
+          color: darkTheme ? "#fff" : "#000",
+          padding: "8px 16px",
+          borderRadius: "8px",
+          width: "300px",
+        },
+      }
+    );
   };
 
   const checkThresholds = async () => {
@@ -40,36 +93,76 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
       const dataInvernadero3 = await valuesGreenhouse3LastDay();
 
       const latestDataMushroom = dataMushroom[dataMushroom.length - 1];
-      const latestDataInvernadero1 = dataInvernadero1[dataInvernadero1.length - 1];
-      const latestDataInvernadero3 = dataInvernadero3[dataInvernadero3.length - 1];
+      const latestDataInvernadero1 =
+        dataInvernadero1[dataInvernadero1.length - 1];
+      const latestDataInvernadero3 =
+        dataInvernadero3[dataInvernadero3.length - 1];
 
       const currentTime = new Date().toLocaleTimeString();
 
       // Check thresholds and send notifications for Mushroom
       if (latestDataMushroom.humidity < thresholds.hongoHumidity) {
-        openNotification("Alerta de Humedad - Hongos", "La humedad ha caído por debajo del umbral.", currentTime);
+        openNotification(
+          "Alerta de Humedad - Hongos",
+          "La humedad ha caído por debajo del umbral.",
+          currentTime,
+          darkTheme
+        );
       }
       if (latestDataMushroom.temperature < thresholds.hongoTemp) {
-        openNotification("Alerta de Temperatura - Hongos", "La temperatura ha caído por debajo del umbral.", currentTime);
+        openNotification(
+          "Alerta de Temperatura - Hongos",
+          "La temperatura ha caído por debajo del umbral.",
+          currentTime,
+          darkTheme
+        );
       }
-      if (latestDataMushroom.co2 !== undefined && latestDataMushroom.co2 < thresholds.hongoCO2) {
-        openNotification("Alerta de CO2 - Hongos", "El CO2 ha caído por debajo del umbral.", currentTime);
+      if (
+        latestDataMushroom.co2 !== undefined &&
+        latestDataMushroom.co2 < thresholds.hongoCO2
+      ) {
+        openNotification(
+          "Alerta de CO2 - Hongos",
+          "El CO2 ha caído por debajo del umbral.",
+          currentTime,
+          darkTheme
+        );
       }
 
       // Check thresholds and send notifications for Invernadero 1
       if (latestDataInvernadero1.humidity < thresholds.inv1Humidity) {
-        openNotification("Alerta de Humedad - Invernadero 1", "La humedad ha caído por debajo del umbral.", currentTime);
+        openNotification(
+          "Alerta de Humedad - Invernadero 1",
+          "La humedad ha caído por debajo del umbral.",
+          currentTime,
+          darkTheme
+        );
       }
       if (latestDataInvernadero1.temperature < thresholds.inv1Temp) {
-        openNotification("Alerta de Temperatura - Invernadero 1", "La temperatura ha caído por debajo del umbral.", currentTime);
+        openNotification(
+          "Alerta de Temperatura - Invernadero 1",
+          "La temperatura ha caído por debajo del umbral.",
+          currentTime,
+          darkTheme
+        );
       }
 
       // Check thresholds and send notifications for Invernadero 3
       if (latestDataInvernadero3.humidity < thresholds.inv3Humidity) {
-        openNotification("Alerta de Humedad - Invernadero 3", "La humedad ha caído por debajo del umbral.", currentTime);
+        openNotification(
+          "Alerta de Humedad - Invernadero 3",
+          "La humedad ha caído por debajo del umbral.",
+          currentTime,
+          darkTheme
+        );
       }
       if (latestDataInvernadero3.temperature < thresholds.inv3Temp) {
-        openNotification("Alerta de Temperatura - Invernadero 3", "La temperatura ha caído por debajo del umbral.", currentTime);
+        openNotification(
+          "Alerta de Temperatura - Invernadero 3",
+          "La temperatura ha caído por debajo del umbral.",
+          currentTime,
+          darkTheme
+        );
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -78,13 +171,13 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
 
   useEffect(() => {
     checkThresholds();
-    const interval = setInterval(checkThresholds, 60000);
+    const interval = setInterval(checkThresholds, 6000);
     return () => clearInterval(interval);
-  }, [thresholds]);
+  }, [thresholds, darkTheme]);
 
   return (
     <Layout hasSider style={{ minHeight: "100vh" }}>
-      {contextHolder}
+      <Toaster />
       <Sider
         width={220}
         collapsible
@@ -152,3 +245,5 @@ export const Sidebar = ({ Dashboard }: SidebarProps) => {
     </Layout>
   );
 };
+
+export default SidebarComponent;

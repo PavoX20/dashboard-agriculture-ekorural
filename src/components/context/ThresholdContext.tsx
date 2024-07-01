@@ -24,15 +24,15 @@ export const ThresholdProvider: React.FC<{ children: ReactNode }> = ({
     return savedThresholds
       ? JSON.parse(savedThresholds)
       : {
-          hongoTemp: 23,
-          hongoHumidity: 23,
-          hongoCO2: 425,
-          inv1Temp: 23,
-          inv1Humidity: 23,
-          inv2Temp: 23,
-          inv2Humidity: 23,
-          inv3Temp: 23,
-          inv3Humidity: 23,
+          hongoTemp: 20,
+          hongoHumidity: 20,
+          hongoCO2: 390,
+          inv1Temp: 20,
+          inv1Humidity: 20,
+          inv2Temp: 20,
+          inv2Humidity: 20,
+          inv3Temp: 20,
+          inv3Humidity: 20,
         };
   });
 

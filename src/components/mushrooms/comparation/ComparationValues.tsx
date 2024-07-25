@@ -12,7 +12,7 @@ import DataTableTemperature from "./tables/DataTableTemperature";
 import DataTableHumidity from "./tables/DataTableHumidity";
 import DataTableCO2 from "./tables/DataTableCO2";
 import { CheckboxValueType } from "../../types/sharedTypes";
-import "./ComparationValues.css"
+import "./ComparationValues.css";
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -63,7 +63,7 @@ const ComparationValues: React.FC<{ theme: boolean }> = ({ theme }) => {
 
   const flattenedData = dataValues.flatMap((dailyData) =>
     dailyData.data.map((dataPoint) => ({
-      timestamp: new Date(dataPoint.timestamp).getTime(),
+      timestamp: new Date(dataPoint.timestamp).toISOString(), // Convertir a string en formato ISO
       date: new Date(dataPoint.timestamp).toLocaleDateString(),
       time: new Date(dataPoint.timestamp).toLocaleTimeString(),
       humidity: dataPoint.humidity,

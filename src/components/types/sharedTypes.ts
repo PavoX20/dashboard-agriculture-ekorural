@@ -3,12 +3,7 @@
 import { Checkbox } from "antd";
 import type { GetProp } from "antd";
 
-export interface GeneralData {
-    timestamp: string;
-    humidity: number;
-    temperature?: number;
-    co2?: number;
-  }
+
   
   export type HumidityChartProps = {
     data: GeneralData[];
@@ -80,11 +75,7 @@ export interface Thresholds {
 }
 
 
-export interface GeneralData {
-  timestamp: string;
-  humidity: number;
-  temperature?: number;
-}
+
 
 export interface CombinedChartProps {
   data: GeneralData[];
@@ -108,14 +99,7 @@ export interface Thresholds {
   inv3Humidity: number;
 }
 
-// src/types/types.ts
 
-export interface GeneralData {
-  timestamp: string;
-  humidity: number;
-  temperature?: number;
-  co2?: number;
-}
 
 export interface TemperatureChartProps {
   data: GeneralData[];

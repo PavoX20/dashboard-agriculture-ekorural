@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-import type { GeneralData } from './types/types';
+import type { GeneralData } from '../../types/sharedTypes';
 import './TableMushrooms.css';
 
 type DataTableProps = {
@@ -44,24 +44,24 @@ const DataTable: React.FC<DataTableProps> = ({ data, theme }) => {
         time: date.toLocaleTimeString(),
         type: 'Humedad',
         value: item.humidity,
-        timestamp: item.timestamp,
+        timestamp: date.getTime(),  // Convertir timestamp a número
       },
       {
         date: date.toLocaleDateString(),
         time: date.toLocaleTimeString(),
         type: 'Temperatura',
         value: item.temperature,
-        timestamp: item.timestamp,
+        timestamp: date.getTime(),  // Convertir timestamp a número
       },
       {
         date: date.toLocaleDateString(),
         time: date.toLocaleTimeString(),
         type: 'CO2',
         value: item.co2,
-        timestamp: item.timestamp,
+        timestamp: date.getTime(),  // Convertir timestamp a número
       },
     ];
-  }).sort((a, b) => b.timestamp - a.timestamp);
+  }).sort((a, b) => b.timestamp - a.timestamp);  // Ahora timestamp es un número
 
   return (
     <Table

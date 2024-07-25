@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
-import type { GeneralData } from '../types/types';
+import type { GeneralData } from '../../../types/sharedTypes';
 import { utils, writeFile } from 'xlsx';
 import './TableMushrooms.css';
 

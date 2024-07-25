@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function humedityLastDay() {
-  const url = "http://localhost:3000/mushroomOysters/DataLastDay";
+  const url = "/api/mushroomOysters/DataLastDay";
 
   try {
     // Realiza la solicitud GET utilizando axios

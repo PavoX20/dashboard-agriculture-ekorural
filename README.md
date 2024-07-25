@@ -1,21 +1,21 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto proporciona una configuración mínima para que React funcione con Vite, con HMR (Hot Module Replacement) y algunas reglas de ESLint.
 
-Currently, two official plugins are available:
+Actualmente, hay dos complementos oficiales disponibles:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) usa [Babel](https://babeljs.io/) para Fast Refresh.
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) usa [SWC](https://swc.rs/) para Fast Refresh.
 
-## Expanding the ESLint configuration
+## Configuración de ESLint
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Si estás desarrollando una aplicación de producción, se recomienda actualizar la configuración para habilitar reglas de lint conscientes de tipos:
 
-- Configure the top-level `parserOptions` property like this:
+- Configura la propiedad `parserOptions` de nivel superior de esta manera:
 
-```js
+\`\`\`js
 export default {
-  // other rules...
+  // otras reglas...
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -23,9 +23,53 @@ export default {
     tsconfigRootDir: __dirname,
   },
 }
-```
+\`\`\`
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Reemplaza \`plugin:@typescript-eslint/recommended\` con \`plugin:@typescript-eslint/recommended-type-checked\` o \`plugin:@typescript-eslint/strict-type-checked\`.
+- Opcionalmente, agrega \`plugin:@typescript-eslint/stylistic-type-checked\`.
+- Instala [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) y agrega \`plugin:react/recommended\` y \`plugin:react/jsx-runtime\` a la lista \`extends\`.
+
+## Versiones y Requisitos
+
+- **Node.js**: Asegúrate de usar la última versión de Node.js disponible en este momento. Puedes descargarla desde [aquí](https://nodejs.org/).
+
+## Cómo Correr la Aplicación
+
+Para correr la aplicación, sigue estos pasos:
+
+1. Clona el repositorio:
+   \`\`\`sh
+   git clone <URL_DEL_REPOSITORIO>
+   \`\`\`
+2. Navega al directorio del proyecto:
+   \`\`\`sh
+   cd nombre-del-proyecto
+   \`\`\`
+3. Instala las dependencias:
+   \`\`\`sh
+   npm install
+   \`\`\`
+4. Corre la aplicación en modo desarrollo:
+   \`\`\`sh
+   npm run dev
+   \`\`\`
+5. Abre tu navegador y navega a \`http://localhost:3000\`.
+
+## URLs y Conexión con Backend en Docker
+
+Las URLs de esta aplicación están configuradas para conectarse a un backend en una red de Docker. Si necesitas conectarte a otra API, deberás editar las URLs en la configuración del proyecto y posiblemente el código también.
+
+### Ejemplo de Configuración de URLs
+
+\`\`\`js
+// Archivo de configuración o código donde se definen las URLs
+const API_URL = process.env.API_URL || 'http://backend-container-name:port';
+\`\`\`
+
+Asegúrate de que los nombres de los contenedores y los puertos sean correctos y que todos los contenedores estén en la misma red de Docker.
+
+## Información Adicional
+
+Para obtener más información sobre cómo configurar y usar Vite con React y TypeScript, consulta la [documentación oficial de Vite](https://vitejs.dev/).
+
 # dashboard-agriculture-ekorural

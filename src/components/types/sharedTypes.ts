@@ -3,7 +3,14 @@
 import { Checkbox } from "antd";
 import type { GetProp } from "antd";
 
-
+export interface GeneralData {
+  timestamp: string; // Asegúrate de que sea string si es lo que se espera
+  date: string;
+  time: string;
+  humidity: number;
+  temperature: number;
+  co2: number;
+}
   
   export type HumidityChartProps = {
     data: GeneralData[];
@@ -77,6 +84,7 @@ export interface Thresholds {
 
 
 
+
 export interface CombinedChartProps {
   data: GeneralData[];
   theme: boolean;
@@ -98,6 +106,8 @@ export interface Thresholds {
   inv3Temp: number;
   inv3Humidity: number;
 }
+
+// src/types/types.ts
 
 
 
@@ -132,13 +142,6 @@ export interface DailyData {
   ventilatorStatus: boolean;
 }
 
-export interface GeneralData {
-  timestamp: string;
-  date: string;
-  time: string;
-  humidity: number;
-  temperature?: number;
-  co2?: number;
-}
+
 
 export type CheckboxValueType = GetProp<typeof Checkbox.Group, "value">[number];

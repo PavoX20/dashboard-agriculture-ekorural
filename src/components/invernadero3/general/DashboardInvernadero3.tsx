@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import "./DashboardInvernadero3.css";
 import { humedityLastDay } from "./fetchData/fetchData";
 import { Divider, Button } from "antd";
-import { GeneralData, DashboardProps } from '../../types/sharedTypes';
+import { GeneralData, DashboardProps } from "../../types/sharedTypes";
 import CombinedLinePlot from "./plotsLastDay/CombinedLinePlot";
 import DataTableInvernadero from "./DataTableInvernadero";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
-const DashboardInvernadero1: React.FC<DashboardProps> = ({ theme, thresholds }) => {
+const DashboardInvernadero3: React.FC<DashboardProps> = ({
+  theme,
+  thresholds,
+}) => {
   const [humedity, setHumidity] = useState<number | null>(null);
   const [temperature, setTemperature] = useState<number | null>(null);
   const [time, setTime] = useState<string | null>(null);
@@ -17,7 +20,10 @@ const DashboardInvernadero1: React.FC<DashboardProps> = ({ theme, thresholds }) 
   const fetchHumedityLastDay = async () => {
     try {
       const data = await humedityLastDay();
-      if (data === null) return;
+      if (!Array.isArray(data)) {
+        console.error("Expected data to be an array, but got:", data);
+        return;
+      }
       setDataLastDay(data);
 
       const latestData = data[data.length - 1];
@@ -66,14 +72,23 @@ const DashboardInvernadero1: React.FC<DashboardProps> = ({ theme, thresholds }) 
       <br />
       <div className="row">
         <div className="col-sm-6 col-hum-temp flex-column">
-          <p className="invernadero-text" style={{ color: theme ? "white" : "inherit" }}>
+          <p
+            className="invernadero-text"
+            style={{ color: theme ? "white" : "inherit" }}
+          >
             Humedad actual:
             {humedity === null ? (
-              <span className="invernadero-value-notLoaded" style={{ color: theme ? "white" : "inherit" }}>
+              <span
+                className="invernadero-value-notLoaded"
+                style={{ color: theme ? "white" : "inherit" }}
+              >
                 {"Cargando..."}
               </span>
             ) : (
-              <span className="invernadero-value" style={{ color: theme ? "white" : "inherit" }}>
+              <span
+                className="invernadero-value"
+                style={{ color: theme ? "white" : "inherit" }}
+              >
                 {humedity} %
               </span>
             )}
@@ -81,14 +96,23 @@ const DashboardInvernadero1: React.FC<DashboardProps> = ({ theme, thresholds }) 
         </div>
 
         <div className="col-sm-6 col-hum-temp flex-column">
-          <p className="invernadero-text" style={{ color: theme ? "white" : "inherit" }}>
+          <p
+            className="invernadero-text"
+            style={{ color: theme ? "white" : "inherit" }}
+          >
             Temperatura actual:
             {temperature === null ? (
-              <span className="invernadero-value-notLoaded" style={{ color: theme ? "white" : "inherit" }}>
+              <span
+                className="invernadero-value-notLoaded"
+                style={{ color: theme ? "white" : "inherit" }}
+              >
                 {"Cargando..."}
               </span>
             ) : (
-              <span className="invernadero-value" style={{ color: theme ? "white" : "inherit" }}>
+              <span
+                className="invernadero-value"
+                style={{ color: theme ? "white" : "inherit" }}
+              >
                 {temperature} &#176;C
               </span>
             )}
@@ -96,7 +120,10 @@ const DashboardInvernadero1: React.FC<DashboardProps> = ({ theme, thresholds }) 
         </div>
 
         <div className="col-12">
-          <p className="invernadero-value-lastUpdated" style={{ color: theme ? "white" : "inherit" }}>
+          <p
+            className="invernadero-value-lastUpdated"
+            style={{ color: theme ? "white" : "inherit" }}
+          >
             Datos actualizados hace {time} minuto(s)
           </p>
         </div>
@@ -139,4 +166,4 @@ const DashboardInvernadero1: React.FC<DashboardProps> = ({ theme, thresholds }) 
   );
 };
 
-export default DashboardInvernadero1;
+export default DashboardInvernadero3;

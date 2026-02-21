@@ -38,30 +38,33 @@ const DataTable: React.FC<DataTableProps> = ({ data, theme }) => {
 
   const formattedData = data.flatMap((item) => {
     const date = new Date(item.timestamp);
+    const timestampNumber = date.getTime(); // Convertir timestamp a número
+  
     return [
       {
         date: date.toLocaleDateString(),
         time: date.toLocaleTimeString(),
         type: 'Humedad',
         value: item.humidity,
-        timestamp: date.getTime(),  // Convertir timestamp a número
+        timestamp: timestampNumber,
       },
       {
         date: date.toLocaleDateString(),
         time: date.toLocaleTimeString(),
         type: 'Temperatura',
         value: item.temperature,
-        timestamp: date.getTime(),  // Convertir timestamp a número
+        timestamp: timestampNumber,
       },
       {
         date: date.toLocaleDateString(),
         time: date.toLocaleTimeString(),
         type: 'CO2',
         value: item.co2,
-        timestamp: date.getTime(),  // Convertir timestamp a número
+        timestamp: timestampNumber,
       },
     ];
-  }).sort((a, b) => b.timestamp - a.timestamp);  // Ahora timestamp es un número
+  }).sort((a, b) => b.timestamp - a.timestamp);
+  
 
   return (
     <Table

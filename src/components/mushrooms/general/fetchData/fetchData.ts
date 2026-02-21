@@ -1,17 +1,14 @@
 import axios from "axios";
 
 export async function humedityLastDay() {
-  const url = "/api/mushroomOysters/DataLastDay";
+  const url = "http://localhost:5001/mushroomOysters/DataLastDay"; // Usa el nombre del servicio Docker y el puerto interno del backend
 
   try {
-    // Perform a GET request using axios
     const response = await axios.get(url);
-
-    // `response.data` contains the data in JSON format
-    return response.data; // Return the data for further use
+    const data = response.data;
+    return data; // Retorna los datos para uso posterior
   } catch (error) {
-    // Handle errors in the request or in the response
     console.error("Failed to fetch data:", error);
-    return null;  // Return null to indicate that the fetch was unsuccessful
+    return null;  // Retorna null para indicar que la solicitud no tuvo éxito
   }
 }

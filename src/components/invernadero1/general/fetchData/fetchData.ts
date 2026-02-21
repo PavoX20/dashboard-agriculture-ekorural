@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function humedityLastDay() {
-  const url = "/api/mushroomOysters/DataLastDay";
+  const url = "http://localhost:5001/mushroomOysters/DataLastDay"; // Usa el nombre del servicio Docker y el puerto interno del backend
 
   try {
     // Realiza la solicitud GET utilizando axios
@@ -16,5 +16,3 @@ export async function humedityLastDay() {
     return null;  // Retorna null para indicar que la solicitud no tuvo éxito
   }
 }
-
-

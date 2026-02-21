@@ -21,7 +21,10 @@ const DashboardHongos: React.FC<DashboardProps> = ({ theme, thresholds }) => {
   const fetchHumedityLastDay = async () => {
     try {
       const data = await humedityLastDay();
-      if (data === null) return;
+      if (!Array.isArray(data)) {
+        console.error("Expected data to be an array, but got:", data);
+        return;
+      }
       setDataLastDay(data);
 
       const latestData = data[data.length - 1];

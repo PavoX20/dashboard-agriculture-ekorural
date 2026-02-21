@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function valuesMushroomLastDay() {
-  const url = "/api/mushroomOysters/DataLastDay";
+  const url = "http://localhost:3000/mushroomOysters/DataLastDay";
 
   try {
     // Perform a GET request using axios
@@ -19,7 +19,7 @@ export async function valuesMushroomLastDay() {
 
 
 export async function valuesGreenhouse1LastDay() {
-  const url = "/api/mushroomOysters/DataLastDay";
+  const url = "http://localhost:3000/mushroomOysters/DataLastDay";
 
   try {
     // Realiza la solicitud GET utilizando axios

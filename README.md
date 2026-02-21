@@ -47,7 +47,7 @@ nvm use 16.20.2
 # 3. Instalar dependencias
 pnpm install
 
-# 4. Iniciar en modo desarrollo (http://localhost:5173)
+# 4. Iniciar en modo desarrollo (http://localhost:5173/dashboard)
 pnpm run dev
 
 # 5. Build de producción
